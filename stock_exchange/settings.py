@@ -14,6 +14,9 @@ DEBUG = os.getenv('DEBUG', False) in ('1', 'True', 'true', 'T', 't')
 ALLOWED_HOSTS = ['127.0.0.1']
 
 INSTALLED_APPS = [
+    'homepage.apps.HomepageConfig',
+    'companies.apps.CompaniesConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
