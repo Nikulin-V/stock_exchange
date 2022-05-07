@@ -16,6 +16,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'companies.apps.CompaniesConfig',
+    'rating.apps.RatingConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -87,7 +88,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
