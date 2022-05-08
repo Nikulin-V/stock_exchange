@@ -1,0 +1,15 @@
+<header style="margin-top: 10px">
+    <nav class="nav justify-content-center">
+        <a class="nav-link" href="/">Главная</a>
+        {% if user.is_authenticated %}
+            <a class="nav-link" href="/auth/profile">Мой профиль</a>
+        {% else %}
+            <div>
+                <a class="btn btn-outline-primary" href="/auth/login">Вход</a>
+                <a class="btn btn-outline-primary" href="/auth/signup">Регистрация</a>
+            </div>
+        {% endif %}
+
+    </nav>
+    <hr>
+</header>

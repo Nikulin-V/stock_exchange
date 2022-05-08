@@ -57,7 +57,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stock_exchange.wsgi.application'
 
-
 # Database
 
 DATABASES = {
@@ -66,7 +65,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 
@@ -85,6 +83,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Email password recovery
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_email'
 
 # Internationalization
 
@@ -96,7 +98,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
@@ -104,3 +105,7 @@ STATIC_URL = 'static/'
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/auth/profile/'
+LOGOUT_REDIRECT_URL = '/auth/login/'
