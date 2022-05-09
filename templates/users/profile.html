@@ -28,6 +28,23 @@
         <input class="btn btn-outline-info" type="submit" value="Подтвердить изменения">
     </form>
 
+    <table class="table table-hover">
+        <thead class="table-dark">
+        <tr>
+            <td class="col">Сфера деятельности</td>
+            <td class="col-7">Название компании</td>
+            <td class="col-3">Количество акций</td>
+        </tr>
+        </thead>
+        {% for share in shares %}
+            <tr>
+                <td> {{ share.company.industry.name }}</td>
+                <td> {{ share.company.name }} {% if not share.company.is_active %} (Неактивно) {% endif %} </td>
+                <td> {{ share.count }} </td>
+            </tr>
+        {% endfor %}
+    </table>
+
     <a class="btn btn-outline-danger" href="/auth/password_change">Изменить пароль</a>
     <a class="btn btn-danger" href="/auth/logout">Выйти</a>
 {% endblock %}

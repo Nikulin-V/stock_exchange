@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
+from companies.models import Shares
+
 User = get_user_model()
 
 
@@ -20,13 +22,18 @@ class ProfileView(View):
 
     def get(self, request):
         user = request.user
+        shares = Shares.objects.filter(user=user).select_related(
+            'company').select_related('company__industry').only('count', 'company__name',
+                                                                'company__is_active',
+                                                                'company__industry__name').order_by(
+            '-count', 'company__industry__name').all()
         form = ProfileView.form(
             initial={
                 'first_name': user.first_name,
                 'last_name': user.last_name,
                 'email': user.email
             })
-        context = {'form': form}
+        context = {'form': form, 'shares': shares}
         return render(request, ProfileView.template, context)
 
     def post(self, request):
