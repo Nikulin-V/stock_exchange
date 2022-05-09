@@ -8,6 +8,44 @@ from django.views import View
 User = get_user_model()
 
 
+class UserChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+
+class ProfileView(View):
+    template = 'users/profile.html'
+    form = UserChangeForm
+
+    def get(self, request):
+        user = request.user
+        form = ProfileView.form(
+            initial={
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email
+            })
+        context = {'form': form}
+        return render(request, ProfileView.template, context)
+
+    def post(self, request):
+        user = request.user
+        form = ProfileView.form(request.POST)
+        if form.is_valid():
+            user.first_name = form.cleaned_data['first_name'] if form.cleaned_data[
+                'first_name'] else user.first_name
+            user.last_name = form.cleaned_data['last_name'] if form.cleaned_data[
+                'last_name'] else user.last_name
+            user.email = form.cleaned_data['email'] if form.cleaned_data[
+                'email'] else user.email
+            user.save()
+            return HttpResponseRedirect(reverse('profile'))
+
+        context = {'form': form}
+        return render(request, ProfileView.template, context)
+
+
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Повторите пароль',
