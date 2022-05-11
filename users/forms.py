@@ -17,3 +17,9 @@ class UserRegistrationForm(forms.ModelForm):
         if self.cleaned_data['password'] != self.cleaned_data['password2']:
             raise forms.ValidationError('Пароли не совпадают.')
         return self.cleaned_data['password']
+
+
+class UserChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')

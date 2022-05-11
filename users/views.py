@@ -3,18 +3,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from django import forms
 
 from companies.models import Shares
-from users.forms import UserRegistrationForm
+from users.forms import UserRegistrationForm, UserChangeForm
 
 User = get_user_model()
-
-
-class UserChangeForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email')
 
 
 class ProfileView(View):
@@ -35,7 +28,7 @@ class ProfileView(View):
                 'email': user.email
             })
         context = {'form': form, 'shares': shares}
-        return render(request, ProfileView.template, context)
+        return render(request, self.template, context)
 
     def post(self, request):
         user = request.user
@@ -51,7 +44,7 @@ class ProfileView(View):
             return HttpResponseRedirect(reverse('profile'))
 
         context = {'form': form}
-        return render(request, ProfileView.template, context)
+        return render(request, self.template, context)
 
 
 class SignupView(View):
