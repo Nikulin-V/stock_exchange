@@ -39,14 +39,11 @@
                     </div>
                 </div>
                 <div class="text-danger">
-                    {{ form.email.errors }}
-                    {{ form.first_name.errors }}
-                    {{ form.last_name.errors }}
                     {% for error in form.errors.values %}
                         {{ error }}
                     {% endfor %}
                 </div>
-                <input class="btn btn-outline-aqua mx-auto" type="submit" value="Подтвердить изменения">
+                <input class="btn btn-outline-aqua mx-auto" type="submit" value="Сохранить">
             </form>
             <a class="btn btn-outline-danger" href="/auth/password_change">Изменить пароль</a>
             <a class="btn btn-danger" href="/auth/logout">Выйти</a>
