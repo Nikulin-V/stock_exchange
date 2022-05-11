@@ -4,9 +4,47 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
-from users.forms import UserRegistrationForm
+from companies.models import Shares
+from users.forms import UserRegistrationForm, UserChangeForm
 
 User = get_user_model()
+
+
+class ProfileView(View):
+    template = 'users/profile.html'
+    form = UserChangeForm
+
+    def get(self, request):
+        user = request.user
+        shares = Shares.objects.filter(user=user).select_related(
+            'company').select_related('company__industry').only('count', 'company__name',
+                                                                'company__is_active',
+                                                                'company__industry__name').order_by(
+            '-count', 'company__industry__name').all()
+        form = ProfileView.form(
+            initial={
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email
+            })
+        context = {'form': form, 'shares': shares}
+        return render(request, self.template, context)
+
+    def post(self, request):
+        user = request.user
+        form = ProfileView.form(request.POST)
+        if form.is_valid():
+            user.first_name = form.cleaned_data['first_name'] if form.cleaned_data[
+                'first_name'] else user.first_name
+            user.last_name = form.cleaned_data['last_name'] if form.cleaned_data[
+                'last_name'] else user.last_name
+            user.email = form.cleaned_data['email'] if form.cleaned_data[
+                'email'] else user.email
+            user.save()
+            return HttpResponseRedirect(reverse('profile'))
+
+        context = {'form': form}
+        return render(request, self.template, context)
 
 
 class SignupView(View):
