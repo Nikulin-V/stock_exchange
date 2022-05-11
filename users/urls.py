@@ -1,19 +1,27 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetView, \
-    PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, \
+    PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from users import views
 
 urlpatterns = [
-    path('logout/',
-         auth_views.LogoutView.as_view(template_name='users/logged_out.html'),
-         name='logout'),
-    path('login/',
-         auth_views.LoginView.as_view(template_name='users/login.html'),
-         name='login'),
-    path("signup/", views.SignupView.as_view(), name='signup'),
+    path(
+        'logout/',
+        auth_views.LogoutView.as_view(template_name='users/logged_out.html'),
+        name='logout'
+    ),
+    path(
+        'login/',
+        auth_views.LoginView.as_view(template_name='users/login.html'),
+        name='login'
+    ),
+    path(
+        'signup/',
+        views.SignupView.as_view(),
+        name='signup'
+    ),
     path(
         'password_change/',
         PasswordChangeView.as_view(template_name='users/password_change.html'),
@@ -44,5 +52,9 @@ urlpatterns = [
         PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
         name='password_reset_complete'
     ),
-    path("profile/", login_required(views.ProfileView.as_view()), name='profile'),
+    path(
+        'profile/',
+        login_required(views.ProfileView.as_view()),
+        name='profile'
+    ),
 ]
