@@ -5,46 +5,78 @@
 {% endblock %}
 
 {% block content %}
-    <h3>Профиль</h3>
-    <form method="post">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>{{ form.email.label_tag }}</td>
-                <td>{{ form.email }}</td>
-                <td>{{ form.email.errors }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.first_name.label_tag }}</td>
-                <td>{{ form.first_name }}</td>
-                <td>{{ form.first_name.errors }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.last_name.label_tag }}</td>
-                <td>{{ form.last_name }}</td>
-                <td>{{ form.last_name.errors }}</td>
-            </tr>
-        </table>
-        <input class="btn btn-outline-info" type="submit" value="Подтвердить изменения">
-    </form>
 
-    <table class="table table-hover">
-        <thead class="table-dark">
-        <tr>
-            <td class="col">Сфера деятельности</td>
-            <td class="col-7">Название компании</td>
-            <td class="col-3">Количество акций</td>
-        </tr>
-        </thead>
-        {% for share in shares %}
-            <tr>
-                <td> {{ share.company.industry.name }}</td>
-                <td> {{ share.company.name }} {% if not share.company.is_active %} (Неактивно) {% endif %} </td>
-                <td> {{ share.count }} </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="container-fluid">
+        <h2>Профиль</h2>
+        <hr>
+        <div class="mx-auto my-5">
+            <h4 class="mb-4">Личная информация</h4>
 
-    <a class="btn btn-outline-danger" href="/auth/password_change">Изменить пароль</a>
-    <a class="btn btn-danger" href="/auth/logout">Выйти</a>
+            <form method="post" class="mb-4">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-4">
+                        {{ form.email.label_tag }}
+                    </div>
+                    <div class="col-8">
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-4">
+                        {{ form.first_name.label_tag }}
+                    </div>
+                    <div class="col-8">
+                        {{ form.first_name }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-4">
+                        {{ form.last_name.label_tag }}
+                    </div>
+                    <div class="col-8">
+                        {{ form.last_name }}
+                    </div>
+                </div>
+                <div class="text-danger">
+                    {{ form.email.errors }}
+                    {{ form.first_name.errors }}
+                    {{ form.last_name.errors }}
+                    {% for error in form.errors.values %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+                <input class="btn btn-outline-aqua mx-auto" type="submit" value="Подтвердить изменения">
+            </form>
+            <a class="btn btn-outline-danger" href="/auth/password_change">Изменить пароль</a>
+            <a class="btn btn-danger" href="/auth/logout">Выйти</a>
+        </div>
+
+        <div class="mx-auto my-5">
+            <h4>Портфель акций</h4>
+
+            {% if shares %}
+                <table class="table table-hover">
+                    <caption class="caption-top">Список акций, принадлежащих вам</caption>
+                    <thead class="table-dark">
+                    <tr>
+                        <td class="col-4">Сфера деятельности</td>
+                        <td class="col-5">Название компании</td>
+                        <td class="col-3 text-center">Количество акций</td>
+                    </tr>
+                    </thead>
+                    {% for share in shares %}
+                        <tr>
+                            <td>{{ share.company.industry.name }}</td>
+                            <td>{{ share.company.name }} {% if not share.company.is_active %} (Неактивно) {% endif %} </td>
+                            <td class="text-center">{{ share.count }} </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>Акций нет</p>
+            {% endif %}
+        </div>
+    </div>
+
 {% endblock %}
