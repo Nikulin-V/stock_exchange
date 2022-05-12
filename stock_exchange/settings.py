@@ -104,6 +104,10 @@ STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
 
+# Additional conditions for user verification
+
+AUTHENTICATION_BACKENDS = ('users.backends.EmailBackend',)
+
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
