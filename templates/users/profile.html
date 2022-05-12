@@ -53,20 +53,20 @@
             <h4>Портфель акций</h4>
 
             {% if shares %}
-                <table class="table table-hover">
+                <table class="table table-hover text-center">
                     <caption class="caption-top">Список акций, принадлежащих вам</caption>
                     <thead class="table-dark">
-                    <tr>
-                        <td class="col-4">Сфера деятельности</td>
-                        <td class="col-5">Название компании</td>
-                        <td class="col-3 text-center">Количество акций</td>
-                    </tr>
+                        <tr>
+                            <td class="col-4">Сфера деятельности</td>
+                            <td class="col-5">Название компании</td>
+                            <td class="col-3">Количество акций</td>
+                        </tr>
                     </thead>
                     {% for share in shares %}
                         <tr>
                             <td>{{ share.company.industry.name }}</td>
                             <td>{{ share.company.name }} {% if not share.company.is_active %} (Неактивно) {% endif %} </td>
-                            <td class="text-center">{{ share.count }} </td>
+                            <td>{{ share.count }} </td>
                         </tr>
                     {% endfor %}
                 </table>
