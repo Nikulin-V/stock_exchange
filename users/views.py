@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
-from companies.models import Shares
+from marketplace.models import Shares
 from users.forms import UserRegistrationForm, UserChangeForm
 
 User = get_user_model()
