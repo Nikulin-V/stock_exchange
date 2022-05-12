@@ -16,6 +16,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'companies.apps.CompaniesConfig',
+    'marketplace.apps.MarketplaceConfig',
     'rating.apps.RatingConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',
