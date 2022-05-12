@@ -9,6 +9,10 @@
         </a>
         <a class="nav-link" href="/">Главная</a>
         {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+                <a class="nav-link" href="/admin">Панель администрирования</a>
+            {% endif %}
+
             <a class="nav-link" href="/auth/profile">Мой профиль</a>
             <a class="nav-link" href="/auth/logout">Выйти</a>
         {% else %}
