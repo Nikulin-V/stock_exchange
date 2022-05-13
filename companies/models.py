@@ -36,22 +36,3 @@ class Company(models.Model):
     class Meta:
         verbose_name = 'Компания'
         verbose_name_plural = 'Компании'
-
-
-class Shares(models.Model):
-    count = models.IntegerField('Акции')
-    company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, verbose_name='Акционер', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.company} ({self.count}) - {self.user.username}'
-
-    class Meta:
-        verbose_name = 'Акции'
-        verbose_name_plural = 'Акции'
-        constraints = [
-            models.UniqueConstraint(
-                fields=['company', 'user'],
-                name='У одного пользователя может быть только одно хранилище акций одной компании.'
-            )
-        ]

@@ -16,6 +16,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'companies.apps.CompaniesConfig',
+    'marketplace.apps.MarketplaceConfig',
     'rating.apps.RatingConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',
@@ -34,6 +35,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'stock_exchange.middleware.ThreadLocalMiddleware',
 ]
 
 ROOT_URLCONF = 'stock_exchange.urls'

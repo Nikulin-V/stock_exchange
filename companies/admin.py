@@ -13,8 +13,3 @@ class IndustryAdmin(admin.ModelAdmin):
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ('name', 'industry')
     list_display_links = ('name',)
-
-
-@admin.register(Shares)
-class SharesAdmin(admin.ModelAdmin):
-    list_display = ('company', 'count', 'user')
