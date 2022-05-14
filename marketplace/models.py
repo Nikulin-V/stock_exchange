@@ -6,7 +6,13 @@ from stock_exchange.middleware import get_current_user
 from users.models import CustomUser
 
 
+class SharesManager(models.Manager):
+    pass
+
+
 class Shares(models.Model):
+    shares = SharesManager()
+
     count = models.PositiveIntegerField('Акции', validators=[MinValueValidator(1)])
     company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, verbose_name='Акционер', on_delete=models.CASCADE)

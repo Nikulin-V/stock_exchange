@@ -1,3 +1,4 @@
+import mimetypes
 import os
 from pathlib import Path
 
@@ -102,9 +103,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'static',
-)
+STATIC_ROOT = 'C:/Users/Vasily/PycharmProjects/stock_exchange/static/'
+
+mimetypes.add_type("application/javascript", ".js")
 
 # Additional conditions for user verification
 

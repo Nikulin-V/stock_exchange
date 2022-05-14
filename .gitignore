@@ -2,4 +2,5 @@
 venv
 .env
 db.sqlite3
-.log
+static/admin
+static/debug_toolbar
