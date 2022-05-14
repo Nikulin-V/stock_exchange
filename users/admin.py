@@ -5,7 +5,6 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from users.models import Profile
 
 User = get_user_model()
-admin.site.unregister(User)
 
 
 class ProfileInlined(admin.TabularInline):
