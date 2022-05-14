@@ -1,13 +1,15 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-DEFAULT_BALANCE = 1000
+from stock_exchange.game_config import DEFAULT_BALANCE
 
 
 class CustomUser(AbstractUser):
-    balance = models.IntegerField('Баланс', default=DEFAULT_BALANCE)
+    balance = models.FloatField('Баланс', default=DEFAULT_BALANCE,
+                                validators=[MinValueValidator(0)])
 
 
 User = CustomUser
