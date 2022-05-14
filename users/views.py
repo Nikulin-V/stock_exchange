@@ -3,9 +3,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-
 from marketplace.models import Shares
-from users.forms import UserRegistrationForm, UserChangeForm
+
+from users.forms import UserChangeForm, UserRegistrationForm
 
 User = get_user_model()
 
