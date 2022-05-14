@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from users.models import CustomUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
@@ -17,7 +17,7 @@ class Rating(models.Model):
                                  validators=[MinValueValidator(0), MaxValueValidator(100)])
     company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE,
                                 related_name='rating')
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, verbose_name='Пользователь', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.company} ({self.points}) - {self.user.username}'

@@ -3,9 +3,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-
 from marketplace.models import Shares
-from users.forms import UserRegistrationForm, UserChangeForm
+
+from users.forms import UserChangeForm, UserRegistrationForm
 
 User = get_user_model()
 
@@ -16,6 +16,7 @@ class ProfileView(View):
 
     def get(self, request):
         user = request.user
+
         shares = Shares.objects.filter(user=user) \
             .select_related('company').select_related('company__industry') \
             .only('count', 'company__name', 'company__is_active', 'company__industry__name')\
