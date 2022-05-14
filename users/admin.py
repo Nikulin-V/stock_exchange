@@ -13,9 +13,9 @@ class ProfileInlined(admin.TabularInline):
 
 
 class UserAdmin(BaseUserAdmin):
-    fieldsets = (
-        (None, {'fields': ('balance',)}),
-    ) + BaseUserAdmin.fieldsets
+    fieldsets = BaseUserAdmin.fieldsets + (
+        ('Кошелёк', {'fields': ('balance',)}),
+    )
     list_display = ('username', 'email', 'balance', 'is_staff')
     list_editable = ('balance',)
     inlines = (ProfileInlined,)
