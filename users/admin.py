@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from users.models import Profile
 
@@ -12,7 +11,10 @@ class ProfileInlined(admin.TabularInline):
     can_delete = False
 
 
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'balance', 'is_staff')
+    list_editable = ('balance',)
+    exclude = ('password', 'last_login', 'date_joined', 'is_superuser', 'groups', 'user_permissions')
     inlines = (ProfileInlined,)
 
 
