@@ -48,24 +48,35 @@
             <a class="btn btn-outline-danger" href="/auth/password_change">Изменить пароль</a>
             <a class="btn btn-danger" href="/auth/logout">Выйти</a>
         </div>
-
-        <div class="mx-auto my-5">
+        <hr>
+        <div class="mx-auto my-1">
             <h4>Портфель акций</h4>
+            <div class="mx-auto my-3">
+                <div class="row mb-3">
+                    <div class="col-4">
+                        Текущий баланс:
+                    </div>
+                    <div class="col-8">
+                        <b>{{ profile.balance }}</b>
+                    </div>
+                </div>
+            </div>
 
             {% if shares %}
                 <table class="table table-hover text-center">
                     <caption class="caption-top">Список акций, принадлежащих вам</caption>
                     <thead class="table-dark">
-                        <tr>
-                            <td class="col-4">Сфера деятельности</td>
-                            <td class="col-5">Название компании</td>
-                            <td class="col-3">Количество акций</td>
-                        </tr>
+                    <tr>
+                        <td class="col-4">Сфера деятельности</td>
+                        <td class="col-5">Название компании</td>
+                        <td class="col-3">Количество акций</td>
+                    </tr>
                     </thead>
                     {% for share in shares %}
                         <tr>
                             <td>{{ share.company.industry.name }}</td>
-                            <td>{{ share.company.name }} {% if not share.company.is_active %} (Неактивно) {% endif %} </td>
+                            <td>{{ share.company.name }} {% if not share.company.is_active %}
+                                (Неактивно) {% endif %} </td>
                             <td>{{ share.count }} </td>
                         </tr>
                     {% endfor %}

@@ -16,6 +16,8 @@ class ProfileView(View):
 
     def get(self, request):
         user = request.user
+        profile = user.profile
+
         shares = Shares.objects.filter(user=user) \
             .select_related('company').select_related('company__industry') \
             .only('count', 'company__name', 'company__is_active', 'company__industry__name')\
@@ -27,7 +29,7 @@ class ProfileView(View):
                 'email': user.email
             }
         )
-        context = {'form': form, 'shares': shares}
+        context = {'form': form, 'shares': shares, 'profile': profile}
         return render(request, self.template, context)
 
     def post(self, request):
