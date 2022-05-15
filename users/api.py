@@ -1,12 +1,11 @@
-from core.socketio import sio
-from users.models import CustomUser
+from core.socketio import sio, get_socket_user
 
 
 @sio.on('getUser')
 def getUser(sid, data):
     event_name = 'getUser'
 
-    user = CustomUser.objects.filter(username=data['user']).all()[0]
+    user = get_socket_user(sid)
 
     data = {
         'username': user.username,

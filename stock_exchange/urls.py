@@ -2,6 +2,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from core.views import SocketAuthView
 from marketplace.views import MarketplaceView
 from stock_exchange import settings
 
@@ -12,6 +13,7 @@ urlpatterns = [
     path('', HomeView.as_view()),
     path('auth/', include('users.urls')),
     path('marketplace/', MarketplaceView.as_view()),
+    path('socket-auth/', SocketAuthView.as_view()),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

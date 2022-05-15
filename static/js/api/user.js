@@ -1,5 +1,3 @@
-console.log('Ура!!!')
-
 let user = Object()
 
 user.get = function (fn=null) {
@@ -11,6 +9,7 @@ user.get = function (fn=null) {
 }
 
 socket.on('getUser', function (data) {
+    user.username = data['username']
     user.first_name = data['first_name']
     user.last_name = data['last_name']
     user.email = data['email']
