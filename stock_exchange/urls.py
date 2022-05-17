@@ -2,6 +2,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from companies.views import CompanyView
 from marketplace.views import MarketplaceView
 from .settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 
@@ -13,6 +14,7 @@ urlpatterns = [
     path('auth/', include('users.urls')),
     path('marketplace/', MarketplaceView.as_view()),
     path('tinymce/', include('tinymce.urls')),
+    path('company/<int:pk>/', CompanyView.as_view()),
 ]
 
 if DEBUG:

@@ -53,6 +53,11 @@ class Company(models.Model):
             return mark_safe(f'<img src="{self.upload.url}" width="50">')
         return 'Нет изображения'
 
+    def image_small(self):
+        if self.upload:
+            return mark_safe(f'<img src="{self.upload.url}" width="150">')
+        return 'Нет изображения'
+
     image_tmb.short_description = 'Логотип'
 
     def __str__(self):
@@ -72,6 +77,11 @@ class Photo(models.Model):
     def image(self):
         if self.upload:
             return mark_safe(f'<img src="{self.upload.url}" width="200">')
+        return '-'
+
+    def big_image(self):
+        if self.upload:
+            return mark_safe(f'<img src="{self.upload.url}" width="450">')
         return '-'
 
     image.short_description = 'Картинка'
