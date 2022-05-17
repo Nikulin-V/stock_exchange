@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.safestring import mark_safe
 
@@ -33,6 +34,7 @@ class Company(models.Model):
     is_active = models.BooleanField('Активно', default=True)
     industry = models.ForeignKey(Industry, default='Другое', verbose_name='Отрасль',
                                  on_delete=models.SET_DEFAULT, related_name='companies')
+    trust_points = models.IntegerField('Очки доверия', default=0, validators=[MinValueValidator(0)])
 
     description = HTMLField('Описание', help_text='Опишите компанию', max_length=1024, null=True)
     owners = models.ManyToManyField(CustomUser, verbose_name='Владельцы',
