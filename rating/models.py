@@ -1,8 +1,8 @@
-from users.models import CustomUser
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from companies.models import Company
+from users.models import CustomUser
 
 
 class RatingManager(models.Manager):

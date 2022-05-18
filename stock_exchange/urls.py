@@ -1,10 +1,10 @@
 from django.contrib import admin
-from django.urls import path, include
-
-from marketplace.views import MarketplaceView
-from .settings import DEBUG
+from django.urls import include, path
 
 from homepage.views import HomeView
+from marketplace.views import MarketplaceView
+
+from .settings import DEBUG
 
 urlpatterns = [
     path('admin/', admin.site.urls),
