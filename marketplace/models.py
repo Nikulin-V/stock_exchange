@@ -32,13 +32,13 @@ class Shares(models.Model):
 
 
 class LotManager(models.Manager):
-    def get_user_lots(self):
-        return self.get_queryset().filter(user=get_current_user()).only(
+    def get_user_lots(self, user=get_current_user()):
+        return self.get_queryset().filter(user=user).only(
             'count', 'price', 'company__name'
         ).all()
 
-    def get_sell_lots(self):
-        return self.get_queryset().exclude(user=get_current_user()).only(
+    def get_marketplace_lots(self, user=get_current_user()):
+        return self.get_queryset().exclude(user=user).only(
             'count', 'price', 'company__name', 'user__username'
         ).all()
 

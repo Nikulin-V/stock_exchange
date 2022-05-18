@@ -103,7 +103,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
-STATIC_ROOT = 'C:/Users/Vasily/PycharmProjects/stock_exchange/static/'
+STATIC_ROOT = BASE_DIR / 'static/'
 
 mimetypes.add_type("application/javascript", ".js")
 
