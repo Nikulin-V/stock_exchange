@@ -10,6 +10,6 @@ class MarketplaceView(View):
     def get(self, request):
         context = {
             'user_lots': Lot.lots.get_user_lots(),
-            'marketplace_lots': Lot.lots.get_marketplace_lots()
+            'marketplace_lots': Lot.lots.get_marketplace_lots(),
         }
         return render(request, self.template, context)

@@ -1,4 +1,4 @@
-from core.socketio import sio, get_socket_user
+from core.socketio import get_socket_user, sio
 
 
 @sio.on('getUser')

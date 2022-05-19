@@ -1,9 +1,8 @@
 import os
 
-from django.core.wsgi import get_wsgi_application
-
-import socketio
 import eventlet.wsgi
+import socketio
+from django.core.wsgi import get_wsgi_application
 
 from core.socketio import sio
 

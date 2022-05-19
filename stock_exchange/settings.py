@@ -105,7 +105,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static/'
 
-mimetypes.add_type("application/javascript", ".js")
+mimetypes.add_type('application/javascript', '.js')
 
 # Additional conditions for user verification
 

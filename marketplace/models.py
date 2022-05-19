@@ -26,21 +26,27 @@ class Shares(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['company', 'user'],
-                name='У одного пользователя может быть только одно хранилище акций одной компании.'
+                name='У одного пользователя может быть только одно хранилище акций одной компании.',
             )
         ]
 
 
 class LotManager(models.Manager):
     def get_user_lots(self, user=get_current_user()):
-        return self.get_queryset().filter(user=user).only(
-            'count', 'price', 'company__name'
-        ).all()
+        return (
+            self.get_queryset()
+            .filter(user=user)
+            .only('count', 'price', 'company__name')
+            .all()
+        )
 
     def get_marketplace_lots(self, user=get_current_user()):
-        return self.get_queryset().exclude(user=user).only(
-            'count', 'price', 'company__name', 'user__username'
-        ).all()
+        return (
+            self.get_queryset()
+            .exclude(user=user)
+            .only('count', 'price', 'company__name', 'user__username')
+            .all()
+        )
 
 
 class Lot(models.Model):
@@ -61,6 +67,6 @@ class Lot(models.Model):
             models.UniqueConstraint(
                 fields=['company', 'price', 'user'],
                 name='У одного пользователя не может быть больше одного лота акций одной компании '
-                     'с одинаковой ценой. '
+                'с одинаковой ценой. ',
             )
         ]

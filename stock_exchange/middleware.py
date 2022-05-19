@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
+
 from threading import local
+
 from django.utils.deprecation import MiddlewareMixin
 
 _thread_locals = local()

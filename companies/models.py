@@ -26,8 +26,13 @@ class Industry(models.Model):
 class Company(models.Model):
     name = models.CharField('Название компании', unique=True, max_length=255)
     is_active = models.BooleanField('Активно', default=True)
-    industry = models.ForeignKey(Industry, default='Другое', verbose_name='Отрасль',
-                                 on_delete=models.SET_DEFAULT, related_name='companies')
+    industry = models.ForeignKey(
+        Industry,
+        default='Другое',
+        verbose_name='Отрасль',
+        on_delete=models.SET_DEFAULT,
+        related_name='companies',
+    )
 
     def __str__(self):
         return self.name
