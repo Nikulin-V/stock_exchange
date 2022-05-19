@@ -2,17 +2,23 @@ from django.shortcuts import render
 from django.views import View
 
 from companies.models import Company, Photo
+from marketplace.models import Shares
 
 
-class CompanyView(View):
-    template = 'companies/company.html'
+class CompaniesView(View):
+    template = 'companies/companies.html'
 
-    def get(self, request, pk):
-        company = Company.objects.filter(pk=pk) \
-            .select_related('industry').prefetch_related('owners') \
-            .only('name', 'is_active', 'industry__name', 'description',
-                  'owners__first_name', 'upload') \
+    def get(self, request, company_name):
+        company = (
+            Company.companies.filter(name=company_name)
+            .select_related('industry')
+            .only('name', 'industry__name', 'description', 'upload')
             .first()
-        photos = Photo.objects.filter(company=company)
-        context = {'company': company, 'photos': photos}
+        )
+        photos = Photo.objects.filter(company=company, is_active=True).all()
+        context = {
+            'company': company,
+            'stockholders': Shares.shares.get_company_stockholders(company),
+            'photos': photos,
+        }
         return render(request, self.template, context)

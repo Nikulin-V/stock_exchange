@@ -37,7 +37,12 @@ function renderUserLots(elementSelector='#user-lots') {
             let {company, count, price} = Object(lots.user_lots[lotId])
             rows += `
                 <tr>
-                    <td>${company}</td>
+                    <td>
+                        <a class="company-link"
+                           href="/companies/${company}">
+                            ${company}
+                        </a>
+                    </td>
                     <td>${count}</td>
                     <td>${parseFloat(price)}</td>
                 </tr>
@@ -70,7 +75,12 @@ function renderMarketplaceLots(elementSelector='#marketplace-lots') {
             let {company, count, price, user} = Object(lots.marketplace_lots[lotId])
             rows += `
                 <tr>
-                    <td>${company}</td>
+                    <td>
+                        <a class="company-link"
+                           href="/companies/${company}">
+                            ${company}
+                        </a>
+                    </td>
                     <td>${user}</td>
                     <td>${count}</td>
                     <td>${parseFloat(price)}</td>

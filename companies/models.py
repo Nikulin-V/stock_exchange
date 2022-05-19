@@ -29,16 +29,22 @@ class Industry(models.Model):
         verbose_name_plural = 'Отрасли'
 
 
+class CompanyManager(models.Manager):
+    pass
+
+
 class Company(models.Model):
+    companies = CompanyManager()
+
     name = models.CharField('Название компании', unique=True, max_length=255)
     is_active = models.BooleanField('Активно', default=True)
     industry = models.ForeignKey(Industry, default='Другое', verbose_name='Отрасль',
                                  on_delete=models.SET_DEFAULT, related_name='companies')
     trust_points = models.IntegerField('Очки доверия', default=0, validators=[MinValueValidator(0)])
 
-    description = HTMLField('Описание', help_text='Опишите компанию', max_length=1024, null=True)
-    owners = models.ManyToManyField(CustomUser, verbose_name='Владельцы',
-                                    related_name='companies', blank=True)
+    description = HTMLField('Описание', help_text='Опишите компанию', max_length=1024, blank=True)
+    stockholders = models.ManyToManyField(CustomUser, verbose_name='Акционеры',
+                                          related_name='companies', blank=True)
     upload = models.ImageField(upload_to='uploads/', blank=True,
                                verbose_name='Логотип компании')
     gallery = models.ManyToManyField('companies.Photo', blank=True, verbose_name='Фотографии',
@@ -83,7 +89,7 @@ class Photo(models.Model):
 
     def big_image(self):
         if self.upload:
-            return mark_safe(f'<img src="{self.upload.url}" width="450">')
+            return mark_safe(f'<img src="{self.upload.url}" width="500">')
         return '-'
 
     image.short_description = 'Картинка'

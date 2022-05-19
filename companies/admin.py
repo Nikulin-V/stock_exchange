@@ -19,7 +19,7 @@ class GalleryInlined(admin.TabularInline):
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ('name', 'industry', 'is_active', 'image_tmb', 'trust_points')
     list_editable = ('is_active',)
-    filter_horizontal = ('owners',)
+    filter_horizontal = ('stockholders',)
     list_display_links = ('name',)
     exclude = ('gallery',)
     inlines = (GalleryInlined,)

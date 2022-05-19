@@ -75,8 +75,12 @@
                         {% for share in shares %}
                             <tr>
                                 <td>{{ share.company.industry.name }}</td>
-                                <td>{{ share.company.name }} {% if not share.company.is_active %}
-                                    (Неактивно) {% endif %} </td>
+                                <td>
+                                    <a class="company-link"
+                                       href="/companies/{{ share.company.name }}">
+                                        {{ share.company.name }}
+                                    </a>
+                                </td>
                                 <td>{{ share.count }} </td>
                             </tr>
                         {% endfor %}

@@ -9,6 +9,11 @@ class RatingManager(models.Manager):
     def get_queryset(self):
         return super(RatingManager, self).get_queryset().filter(company__is_active=True).all()
 
+    def get_company_rating(self, company):
+        return sum(
+            self.get_queryset().filter(company=company).values_list('points', flat=True)
+        )
+
 
 class Rating(models.Model):
     rating = RatingManager()
