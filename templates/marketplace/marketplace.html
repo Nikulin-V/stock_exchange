@@ -10,57 +10,66 @@
             <div class="col-8">
                 <h2>Торговая площадка</h2>
             </div>
-            <div class="col-4 pt-1">
-                <h3>Баланс: {{ user.balance|floatformat:2 }} <i class="bi bi-coin"></i></h3>
+            <div class="col-4 pt-1 text-end">
+                <h3>Баланс: <span id="balance">{{ user.balance|floatformat:2 }}</span>
+                    <i class="bi bi-coin"></i>
+                </h3>
             </div>
         </div>
         <hr>
-        {% if user_lots %}
-            <table class="table table-hover text-center">
-                <caption class="caption-top">Ваши акции, продающиеся на торговой площадке</caption>
-                <thead class="table-dark">
-                    <tr>
-                        <td class="col-8 text-left">Компания</td>
-                        <td class="col-2">Акции</td>
-                        <td class="col-2">Цена за акцию</td>
-                    </tr>
-                </thead>
-                {% for lot in user_lots %}
-                    <tr>
-                        <td>{{ lot.company.name }}</td>
-                        <td>{{ lot.count }}</td>
-                        <td>{{ lot.price }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <p>У вас нет акций, размещённых на торговой площадке.
-                Выставить акции на продажу можно в <a href="/auth/profile">профиле</a>.
-            </p>
-        {% endif %}
+        <div id="user-lots">
+            {% if user_lots %}
+                <table class="table table-hover text-center">
+                    <caption class="caption-top">Ваши акции, продающиеся на торговой площадке</caption>
+                    <thead class="table-dark">
+                        <tr>
+                            <td class="col-8 text-left">Компания</td>
+                            <td class="col-2">Акции</td>
+                            <td class="col-2">Цена за акцию</td>
+                        </tr>
+                    </thead>
+                    {% for lot in user_lots %}
+                        <tr>
+                            <td>{{ lot.company.name }}</td>
+                            <td>{{ lot.count }}</td>
+                            <td>{{ lot.price }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>У вас нет акций, размещённых на торговой площадке.
+                    Выставить акции на продажу можно в <a href="/auth/profile">профиле</a>.
+                </p>
+            {% endif %}
+        </div>
         <hr>
-        {% if sell_lots %}
-            <table class="table table-hover text-center">
-                <caption class="caption-top">Акции, доступные для приобретения</caption>
-                <thead class="table-dark">
-                    <tr>
-                        <td class="col-5 text-left">Компания</td>
-                        <td class="col-3">Продавец</td>
-                        <td class="col-2">Акции</td>
-                        <td class="col-2">Цена за акцию</td>
-                    </tr>
-                </thead>
-                {% for lot in sell_lots %}
-                    <tr>
-                        <td>{{ lot.company.name }}</td>
-                        <td>{{ lot.user.username }}</td>
-                        <td>{{ lot.count }}</td>
-                        <td>{{ lot.price }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <p>На данный момент на торговой площадке нет лотов доступных для покупки</p>
-        {% endif %}
+        <div id="marketplace-lots">
+            {% if marketplace_lots %}
+                <table class="table table-hover text-center">
+                    <caption class="caption-top">Акции, доступные для приобретения</caption>
+                    <thead class="table-dark">
+                        <tr>
+                            <td class="col-5 text-left">Компания</td>
+                            <td class="col-3">Продавец</td>
+                            <td class="col-2">Акции</td>
+                            <td class="col-2">Цена за акцию</td>
+                        </tr>
+                    </thead>
+                    {% for lot in marketplace_lots %}
+                        <tr>
+                            <td>{{ lot.company.name }}</td>
+                            <td>{{ lot.user.username }}</td>
+                            <td>{{ lot.count }}</td>
+                            <td>{{ lot.price }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>На данный момент на торговой площадке нет лотов доступных для покупки</p>
+            {% endif %}
+        </div>
     </div>
+
+    {% load static %}
+    <script src="{% static 'js/marketplace.js' %}"></script>
 {% endblock %}

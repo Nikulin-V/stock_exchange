@@ -2,6 +2,12 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+import socketio
+import eventlet.wsgi
+
+from core.socketio import sio
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stock_exchange.settings')
 
-application = get_wsgi_application()
+application = socketio.WSGIApp(sio, get_wsgi_application())
+eventlet.wsgi.server(eventlet.listen(('', 8000)), application)
