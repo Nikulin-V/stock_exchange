@@ -17,7 +17,7 @@ class ProfileView(View):
     def get(self, request):
         user = request.user
 
-        shares = Shares.objects.filter(user=user) \
+        shares = Shares.shares.filter(user=user) \
             .select_related('company').select_related('company__industry') \
             .only('count', 'company__name', 'company__is_active', 'company__industry__name')\
             .order_by('-count', 'company__industry__name').all()
