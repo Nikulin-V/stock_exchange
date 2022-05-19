@@ -105,7 +105,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static/'
 
-mimetypes.add_type("application/javascript", ".js")
+mimetypes.add_type('application/javascript', '.js')
 
 # Additional conditions for user verification
 
@@ -116,7 +116,7 @@ AUTHENTICATION_BACKENDS = ('users.backends.EmailBackend',)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INTERNAL_IPS = [
-    "127.0.0.1",
+    '127.0.0.1',
 ]
 
 LOGIN_URL = '/auth/login/'

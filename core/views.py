@@ -15,9 +15,7 @@ class SocketAuthView(View):
             return HttpResponse('Войдите в систему для авторизации сокета')
 
         sio.users[sid] = user.username
-        data = {
-            self.event_name: True
-        }
+        data = {self.event_name: True}
         sio.emit(self.event_name, data)
         print(f'Authorized: {user.username} - {sid}')
         return HttpResponse('Сокет успешно авторизован')

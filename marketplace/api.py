@@ -1,5 +1,5 @@
-from core.socketio import sio, get_socket_user
-from marketplace.models import Shares, Lot
+from core.socketio import get_socket_user, sio
+from marketplace.models import Lot, Shares
 
 
 @sio.on('getShares')
@@ -7,16 +7,14 @@ def getShares(sid, data):
     event_name = 'getShares'
 
     user = get_socket_user(sid)
-    user_shares = Shares.shares.filter(
-        user=user
-    ).all()
+    user_shares = Shares.shares.filter(user=user).all()
 
     data = {
         'shares': [
             {
                 'count': s.count,
                 'company': s.company.name,
-                'industry': s.company.industry.name
+                'industry': s.company.industry.name,
             }
             for s in user_shares
         ]
@@ -45,10 +43,10 @@ def getLots(sid, data):
                 'count': lot.count,
                 'price': lot.price,
                 'company': lot.company.name,
-                'user': lot.user.username
+                'user': lot.user.username,
             }
             for lot in Lot.lots.get_marketplace_lots(user)
-        ]
+        ],
     }
 
     sio.emit(event_name, data)
