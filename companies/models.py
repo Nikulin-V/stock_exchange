@@ -43,8 +43,6 @@ class Company(models.Model):
     trust_points = models.IntegerField('Очки доверия', default=0, validators=[MinValueValidator(0)])
 
     description = HTMLField('Описание', help_text='Опишите компанию', max_length=1024, blank=True)
-    stockholders = models.ManyToManyField(CustomUser, verbose_name='Акционеры',
-                                          related_name='companies', blank=True)
     upload = models.ImageField(upload_to='uploads/', blank=True,
                                verbose_name='Логотип компании')
     gallery = models.ManyToManyField('companies.Photo', blank=True, verbose_name='Фотографии',

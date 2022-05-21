@@ -31,7 +31,9 @@ function renderShares(elementSelector='#shares') {
         for (let shareId = 0; shareId < shares.shares.length; shareId++) {
             let {company, count, industry} = Object(shares.shares[shareId])
             rows += `
-                <tr>
+                <tr onclick="window.location.href = '/marketplace/sell-shares?' +
+                                    'company=${company}&' + 
+                                    'shares=${count}'">
                     <td>${industry}</td>
                     <td>
                         <a class="company-link"

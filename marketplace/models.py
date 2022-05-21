@@ -7,6 +7,14 @@ from users.models import CustomUser
 
 
 class SharesManager(models.Manager):
+    def get_user_companies(self, user):
+        return sorted(
+            self.get_queryset().filter(
+                user=user,
+                company__is_active=True
+            ).values_list('company__name', flat=True)
+        )
+
     def get_company_stockholders(self, company):
         return sorted(
             self.get_queryset().

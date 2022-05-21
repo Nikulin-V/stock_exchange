@@ -1,2 +1,2 @@
-from marketplace.api import getLots, getShares
-from users.api import getUser
+from marketplace.api import *
+from users.api import *

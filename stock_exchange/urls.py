@@ -14,7 +14,7 @@ urlpatterns = (
             path('admin/', admin.site.urls),
             path('', HomeView.as_view()),
             path('auth/', include('users.urls')),
-            path('marketplace/', MarketplaceView.as_view()),
+            path('marketplace/', include('marketplace.urls')),
             path('tinymce/', include('tinymce.urls')),
             path('companies/<str:company_name>/', CompaniesView.as_view()),
             path('socket-auth/', SocketAuthView.as_view()),
