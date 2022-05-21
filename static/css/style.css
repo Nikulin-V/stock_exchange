@@ -10,8 +10,12 @@ a {
 
 a:hover {
     color: #00c8d0;
-    background-color: white;
 }
+
+.company-link {
+    color: #212529;
+}
+
 
 .btn-aqua {
     color: #fff;

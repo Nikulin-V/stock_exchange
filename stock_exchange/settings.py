@@ -26,6 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sorl.thumbnail',
+    'django_cleanup.apps.CleanupConfig',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +126,9 @@ LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/auth/profile/'
 LOGOUT_REDIRECT_URL = '/auth/login/'
 AUTH_USER_MODEL = 'users.CustomUser'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 
 if DEBUG:
     INSTALLED_APPS += ['debug_toolbar']

@@ -33,7 +33,12 @@ function renderShares(elementSelector='#shares') {
             rows += `
                 <tr>
                     <td>${industry}</td>
-                    <td>${company}</td>
+                    <td>
+                        <a class="company-link"
+                           href="/companies/${company}">
+                            ${company}
+                        </a>
+                    </td>
                     <td>${count}</td>
                 </tr>
             `

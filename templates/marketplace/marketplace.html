@@ -30,7 +30,12 @@
                     </thead>
                     {% for lot in user_lots %}
                         <tr>
-                            <td>{{ lot.company.name }}</td>
+                            <td>
+                                <a class="company-link"
+                                   href="/companies/{{ lot.company.name }}">
+                                    {{ lot.company.name }}
+                                </a>
+                            </td>
                             <td>{{ lot.count }}</td>
                             <td>{{ lot.price }}</td>
                         </tr>
