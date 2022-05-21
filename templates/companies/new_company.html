@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Основать компанию
+{% endblock %}
+
+{% block content %}
+    <div class="mt-5 mx-auto text-center form">
+        <h3 class="mb-5">Основать компанию</h3>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>{{ form.name.label_tag }}</td>
+                    <td>{{ form.name }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.description.label_tag }}</td>
+                    <td>{{ form.description }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.industry.label_tag }}</td>
+                    <td>{{ form.industry }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.logo.label_tag }}</td>
+                    <td>{{ form.logo }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.photo1.label_tag }}</td>
+                    <td>{{ form.photo1 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.photo2.label_tag }}</td>
+                    <td>{{ form.photo2 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.photo3.label_tag }}</td>
+                    <td>{{ form.photo3 }}</td>
+                </tr>
+            </table>
+            <p>{{ form.errors }}</p>
+            {% for error in errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+            <input class="btn btn-aqua mx-auto" type="submit" value="Подтвердить"/>
+        </form>
+    </div>
+
+{% endblock %}

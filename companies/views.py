@@ -1,6 +1,9 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views import View
 
+from companies.forms import NewCompanyForm
 from companies.models import Company, Photo
 from marketplace.models import Shares
 
@@ -21,4 +24,52 @@ class CompaniesView(View):
             'stockholders': Shares.shares.get_company_stockholders(company),
             'photos': photos,
         }
+        return render(request, self.template, context)
+
+
+class NewCompanyView(View):
+    template = 'companies/new_company.html'
+    form = NewCompanyForm
+
+    def get(self, request):
+        form = self.form(None)
+        context = {'form': form}
+        return render(request, self.template, context)
+
+    def post(self, request):
+        def save_photo(photo, company):
+            Photo.objects.create(upload=photo, company=company).save()
+
+        def check_for_money(user):
+            if user.balance > 500:
+                return True
+            return False
+
+        form = self.form(request.POST, request.FILES)
+        context = {'form': form}
+        if form.is_valid():
+            user = request.user
+            if check_for_money(user):
+                user.balance -= 500
+                user.save()
+            else:
+                form.add_error('name', 'У вас недостаточно средств')
+                return render(request, self.template, context)
+
+            company = Company.companies.create(
+                name=form.cleaned_data['name'],
+                description=form.cleaned_data['description'],
+                industry=form.cleaned_data['industry'],
+                upload=form.cleaned_data['logo'],
+            )
+            if form.cleaned_data['photo1']:
+                save_photo(form.cleaned_data['photo1'], company)
+            if form.cleaned_data['photo2']:
+                save_photo(form.cleaned_data['photo2'], company)
+            if form.cleaned_data['photo3']:
+                save_photo(form.cleaned_data['photo3'], company)
+            company.save()
+
+            return HttpResponseRedirect(
+                reverse('company', kwargs={'company_name': form.cleaned_data['name']}))
         return render(request, self.template, context)
