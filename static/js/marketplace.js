@@ -45,6 +45,11 @@ function renderUserLots(elementSelector='#user-lots') {
                     </td>
                     <td>${count}</td>
                     <td>${parseFloat(price)}</td>
+                    <td>
+                        <a href="#" onclick="lots.return('${company}', ${count}, ${price})">
+                            ❌
+                        </a>
+                    </td>
                 </tr>
             `
         }
@@ -53,9 +58,10 @@ function renderUserLots(elementSelector='#user-lots') {
                     <caption class="caption-top">Ваши акции, продающиеся на торговой площадке</caption>
                     <thead class="table-dark">
                         <tr>
-                            <td class="col-8 text-left">Компания</td>
+                            <td class="col-7 text-left">Компания</td>
                             <td class="col-2">Акции</td>
                             <td class="col-2">Цена за акцию</td>
+                            <td class="col-1"></td>
                         </tr>
                     </thead>
                     ${rows}
