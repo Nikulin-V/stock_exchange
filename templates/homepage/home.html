@@ -1,5 +1,174 @@
 {% extends 'base.html' %}
-
 {% block title %}
-    Главная
+    Торговая площадка
+{% endblock %}
+{% block content %}
+    <body>
+    <!-- Google material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone" rel="stylesheet"/>
+    <style>
+        body {
+            background-image: url(https://area-146.tk/static/images/index-background.jpg);
+            background-attachment: fixed;
+        }
+
+        .nav-link {
+            color: #deeaea;
+        }
+    </style>
+    <!-- Begin page content -->
+    <main role="main" class="container">
+        <div style="text-align: center;color: white;margin-top: 20px;text-shadow: 1px 1px 1px #000;">
+            <div style="font-size: 100px;">Stock exchange</div>
+            <div style="font-size: 50px">by Vacya01 & Aleksander1Byte</div>
+        </div>
+        <div
+                style="padding: 5px;color:white; font-family: Montserrat, monospace; font-weight: 500; vertical-align: baseline;width:75%;background-color: rgba(0,0,0,.3);border: 3px solid white;display: block;border-radius: 10px; margin: 30px auto auto;text-align: justify;">
+
+            <p style="margin: 5px;">Этот сервис позволяет вам познакомиться с основами фондового рынка. В частности, с
+                торговлей акциями.</p>
+
+            <p style="margin: 5px;">
+                Здесь вы можете создавать компании или ОАО и управлять ими, выпускать новые акции и продавать их на
+                торговой площадке, увеличивая баланс на своём счёте. Помните: чем больше доверия, тем
+                больше прибыль компании, тем больше стоят её акции на торговой площадке.
+            </p>
+
+            <p style="margin: 5px;">Прежде чем начать - прочитайте правила. Мы старались сделать их максимально
+                интересными.</p>
+
+        </div>
+        <div style="padding: 5px 10px 5px 5px;color:white; font-family: Montserrat, monospace; font-weight: 500; vertical-align: baseline;width:75%;background-color: rgba(0,0,0,0.65);border: 3px solid white;display: block;border-radius: 10px; margin: 30px auto auto;text-align: justify;">
+
+            <p style="margin: 5px;text-align: center">Правила торговли на фондовой бирже</p>
+            <p style="margin: 5px;text-indent: 10px">Термины и сокращения:</p>
+            <p style="margin: 5px;padding-left: 50px">
+
+                <span data-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Игрок фондовой биржи"><span
+                        class="material-icons md-player">hiking</span></span>
+                - Игрок фондовой биржи<br/>
+
+                <span data-toggle="tooltip" data-placement="top" title=""
+                      data-bs-original-title="Торговая площадка"><span
+                        class="material-icons md-cart">shopping_cart</span></span>
+                - Торговая площадка<br/>
+
+                <span data-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Внутриигровая валюта"><span
+                        class="material-icons-round md-money">paid</span></span>
+                - Внутриигровая валюта<br/>
+                Компания - внутриигровая организация<br/>
+                Акция - внутриигровая акция компании<br/>
+
+            </p>
+            <p style="margin: 5px;text-indent: 10px">Порядок игры:</p>
+            <div style="padding-left: 50px">
+
+                <p style="margin: 5px">
+                    1. Зарегистрируйтесь как <span data-toggle="tooltip" data-placement="top" title=""
+                                                   data-bs-original-title="Игрок фондовой биржи"><span
+                        class="material-icons md-player">hiking</span></span>. При регистрации вы получите свои первые
+                    <span data-toggle="tooltip" data-placement="top" title=""
+                          data-bs-original-title="Внутриигровая валюта">
+                        <span class="material-icons-round md-money">paid</span></span>.
+                </p>
+
+                <p style="margin: 5px">
+                    2. В целях получения прибыли Вы можете открыть компанию в разделе "Компании". Чтобы открыть компанию
+                    Вам необходимо будет заплатить взнос, который является Константой. После открытия компании у Вас
+                    появится определенное
+                    количество акций, которое является Константой.
+                </p>
+
+                <p style="margin: 5px">
+                    3. Вы можете выставить свои акции на продажу на <span data-toggle="tooltip" data-placement="top"
+                                                                          title=""
+                                                                          data-bs-original-title="Торговая площадка"><span
+                        class="material-icons md-cart">shopping_cart</span></span>. При
+                    продаже акций Вы указываете цену за 1 акцию, количество акций и выбираете компанию, акции которой
+                    хотите продать.
+                </p>
+
+                <p style="margin: 5px">
+                    4. На <span data-toggle="tooltip" data-placement="top" title=""
+                                data-bs-original-title="Торговая площадка"><span class="material-icons md-cart">shopping_cart</span></span>
+                    Вы можете покупать акции компаний других
+                    <span data-toggle="tooltip" data-placement="top" title=""
+                          data-bs-original-title="Игрок фондовой биржи"><span
+                            class="material-icons md-player">hiking</span></span>. При покупке акций Вы выбираете
+                    компанию, акции которой
+                    хотите купить, и количество акций. При покупке Вам автоматически предложат купить самые дешевые
+                    акции выбранной компании. Откроется окно с подтверждением покупки и чеком.
+                </p>
+
+                <p style="margin: 5px">
+                    5. При покупке акций на торговой площадке всем акционерам компании (кроме Покупателя и Продавца),
+                    акции которой участвуют в сделке выплачивается комиссия в зависимости от количества акций в их
+                    собственности. Комиссия за
+                    1 акцию является Константой.
+                </p>
+
+                <p style="margin: 5px">
+                    6. Помимо покупки и продажи акций на <span data-toggle="tooltip" data-placement="top" title=""
+                                                               data-bs-original-title="Торговая площадка"><span
+                        class="material-icons md-cart">shopping_cart</span></span> можно снять акции
+                    с продажи или инвестировать в отдельного <span data-toggle="tooltip" data-placement="top" title=""
+                                                                   data-bs-original-title="Игрок фондовой биржи"><span
+                        class="material-icons md-player">hiking</span></span> (перевести на
+                    его кошелёк указанную сумму <span data-toggle="tooltip" data-placement="top" title=""
+                                                      data-bs-original-title="Внутриигровая валюта"><span
+                        class="material-icons-round md-money">paid</span></span>).
+                </p>
+
+                <p style="margin: 5px">7. Существуют подоходный налог и налог на имущество. Налоговая ставка задаётся в
+                    %. Налог на имущество взимается раз в квартал (3 Месяца). Подоходный налог взимается
+                    автоматически.</p>
+
+                <p style="margin: 5px">
+                    8. Компании приносят прибыль раз в Месяц. Прибыль рассчитывается как сумма всех собранных налогов в
+                    отрасли компании за предыдущий квартал * % очков доверия к компании в её отрасли. Из прибыли
+                    вычитается подоходный
+                    налог.
+                </p>
+
+                <p style="margin: 5px">
+                    9. Доверие к компаниям задаётся <span data-toggle="tooltip" data-placement="top" title=""
+                                                          data-bs-original-title="Игрок фондовой биржи"><span
+                        class="material-icons md-player">hiking</span></span>. Каждый
+                    <span data-toggle="tooltip" data-placement="top" title=""
+                          data-bs-original-title="Игрок фондовой биржи"><span
+                            class="material-icons md-player">hiking</span></span> распределяет 100 очков доверия между
+                    компаниями каждой
+                    из отраслей. Добавить очки доверия к компаниям, в которой
+                    <span data-toggle="tooltip" data-placement="top" title=""
+                          data-bs-original-title="Игрок фондовой биржи"><span
+                            class="material-icons md-player">hiking</span></span>
+                    является акционером - нельзя.
+                </p>
+
+                <p style="margin: 5px">
+                    10. В том случае, если <span data-toggle="tooltip" data-placement="top" title=""
+                                                 data-bs-original-title="Игрок фондовой биржи"><span
+                        class="material-icons md-player">hiking</span></span> не распределил часть очков
+                    доверия, то они распределяются поровну между компаниями, в которых
+                    <span data-toggle="tooltip" data-placement="top" title=""
+                          data-bs-original-title="Игрок фондовой биржи"><span
+                            class="material-icons md-player">hiking</span></span> не является акционером.
+                </p>
+
+                <p style="margin: 5px">11. Удачной игры. Ни кризиса, ни инфляции!</p>
+
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+    </main>
+    <div id="notifications" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11"></div>
+    </body>
 {% endblock %}
