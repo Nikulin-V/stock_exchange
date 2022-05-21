@@ -1,8 +1,8 @@
-from users.models import CustomUser
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from companies.models import Company
+from users.models import CustomUser
 
 
 class RatingManager(models.Manager):
@@ -18,10 +18,17 @@ class RatingManager(models.Manager):
 class Rating(models.Model):
     rating = RatingManager()
 
-    points = models.IntegerField('Очки доверия', default=0,
-                                 validators=[MinValueValidator(0), MaxValueValidator(100)])
-    company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE,
-                                related_name='rating')
+    points = models.IntegerField(
+        'Очки доверия',
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+    )
+    company = models.ForeignKey(
+        Company,
+        verbose_name='Компания',
+        on_delete=models.CASCADE,
+        related_name='rating',
+    )
     user = models.ForeignKey(CustomUser, verbose_name='Пользователь', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -33,6 +40,6 @@ class Rating(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['company', 'user'],
-                name='Пользователь может дать очки доверия компании только один раз.'
+                name='Пользователь может дать очки доверия компании только один раз.',
             )
         ]
