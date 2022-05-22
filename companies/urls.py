@@ -5,6 +5,11 @@ from companies.views import *
 
 urlpatterns = [
     path(
+        '',
+        CompaniesView.as_view(),
+        name='companies'
+    ),
+    path(
         'new/',
         login_required(NewCompanyView.as_view()),
         name='new_company'

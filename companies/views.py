@@ -1,3 +1,4 @@
+from django.db.models import Prefetch, Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -6,10 +7,27 @@ from django.views import View
 from companies.forms import NewCompanyForm
 from companies.models import Company, Photo
 from marketplace.models import Shares
+from rating.models import Rating
+
+
+class CompaniesView(View):
+    template = 'companies/companies.html'
+
+    def get(self, request):
+        companies = (
+            Company.companies.filter(is_active=True)
+            .select_related('industry').prefetch_related(
+                Prefetch('rating', queryset=Rating.rating.all()))
+            .only('name', 'industry__name', 'description', 'upload')
+            .annotate(sum_points=Sum('rating__points'))
+            .all()
+        )
+        context = {'companies': companies}
+        return render(request, self.template, context)
 
 
 class CompanyView(View):
-    template = 'companies/companies.html'
+    template = 'companies/company.html'
 
     def get(self, request, company_name):
         company = (
