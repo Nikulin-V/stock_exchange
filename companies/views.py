@@ -20,6 +20,7 @@ class CompaniesView(View):
                 Prefetch('rating', queryset=Rating.rating.all()))
             .only('name', 'industry__name', 'description', 'upload')
             .annotate(sum_points=Sum('rating__points'))
+            .order_by('-sum_points')
             .all()
         )
         context = {'companies': companies}
