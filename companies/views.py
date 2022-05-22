@@ -8,7 +8,7 @@ from companies.models import Company, Photo
 from marketplace.models import Shares
 
 
-class CompaniesView(View):
+class CompanyView(View):
     template = 'companies/companies.html'
 
     def get(self, request, company_name):

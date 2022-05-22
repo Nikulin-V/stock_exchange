@@ -11,7 +11,7 @@ urlpatterns = [
     ),
     path(
         '<str:company_name>/',
-        CompaniesView.as_view(),
+        CompanyView.as_view(),
         name='company'
     ),
 ]

@@ -15,7 +15,7 @@ urlpatterns = (
             path('auth/', include('users.urls')),
             path('marketplace/', MarketplaceView.as_view()),
             path('tinymce/', include('tinymce.urls')),
-            path('company/', include('companies.urls')),
+            path('companies/', include('companies.urls')),
             path('socket-auth/', SocketAuthView.as_view()),
         ]
         + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

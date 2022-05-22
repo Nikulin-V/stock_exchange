@@ -11,9 +11,6 @@ class CustomUser(AbstractUser):
     balance = models.FloatField(
         'Баланс', default=DEFAULT_BALANCE, validators=[MinValueValidator(0)]
     )
-    trust_points = models.IntegerField(
-        'Очки доверия', default=100, validators=[MinValueValidator(0)]
-    )
 
 
 User = CustomUser
