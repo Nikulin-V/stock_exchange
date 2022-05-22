@@ -59,7 +59,7 @@ class NewCompanyView(View):
     form = NewCompanyForm
 
     def get(self, request):
-        form = self.form(None)
+        form = self.form()
         context = {'form': form}
         return render(request, self.template, context)
 
@@ -67,16 +67,11 @@ class NewCompanyView(View):
         def save_photo(photo, company):
             Photo.objects.create(upload=photo, company=company).save()
 
-        def check_for_money(user):
-            if user.balance > 500:
-                return True
-            return False
-
         form = self.form(request.POST, request.FILES)
         context = {'form': form}
         if form.is_valid():
             user = request.user
-            if check_for_money(user):
+            if user.balance >= 500:
                 user.balance -= 500
                 user.save()
             else:
