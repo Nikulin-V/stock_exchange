@@ -71,10 +71,10 @@
                 </table>
             </div>
             {% if company.description %}
-                <div class="col-8">
+                {% comment %}<div class="col-8">{% endcomment %}
                     <h5>Описание</h5>
                     {{ company.description|safe }}
-                </div>
+                {% comment %}</div>{% endcomment %}
                 <hr>
             {% endif %}
         </div>
