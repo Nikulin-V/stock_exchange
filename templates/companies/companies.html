@@ -6,47 +6,46 @@
 
 {% block content %}
     <a href="/companies/new"><h1 class="text-center">Открыть компанию</h1></a>
-    <table class="table table-hover">
-        <caption class="caption-top">Активные компании</caption>
-        <thead class="table-dark">
+    <caption class="caption-top">Активные компании</caption>
+    {% for category, items in companies_by_industry.items %}
+        <table class="table table-hover">
+            <thead class="table-dark">
+            <tr>
+                <td>Название</td>
+                <td>Логотип</td>
+                <td>Очки доверия</td>
+            </tr>
+            </thead>
+            {% ifchanged %}
+                <caption class="caption-top">
+                    {{ category }}
+                </caption>
+            {% endifchanged %}
+            {% for company in items %}
+                <tr>
+                    <td class="text-nowrap">
+                        <a class="company-link" href="/companies/{{ company.name }}">
+                            {{ company.name }}
+                        </a>
+                    </td>
+                    <td>
+                        {% if company.upload %}
+                            {{ company.image_small }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if company.sum_points %}{{ company.sum_points }}{% else %}0{% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% empty %}
         <tr>
-            <td>Название</td>
-            <td>Сфера деятельности</td>
-            <td>Краткое описание</td>
-            <td>Логотип</td>
-            <td>Очки доверия</td>
+            <td>
+                Список пуст. Эй, админ, добавь инфы!
+            </td>
         </tr>
-        </thead>
-        {% for company in companies %}
-            <tr>
-                <td class="text-nowrap">
-                    <a class="company-link" href="/companies/{{ company.name }}">
-                        {{ company.name }}
-                    </a>
-                </td>
-                <td>
-                    {{ company.industry.name }}
-                </td>
-                <td>
-                    {{ company.description|truncatewords:30|safe }}
-                </td>
-                <td>
-                    {% if company.upload %}
-                        {{ company.image_small }}
-                    {% else %}
-                        —
-                    {% endif %}
-                </td>
-                <td>
-                    {% if company.sum_points %}{{ company.sum_points }}{% else %}0{% endif %}
-                </td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td>
-                    Список пуст. Эй, админ, добавь инфы!
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% endfor %}
 {% endblock %}

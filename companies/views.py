@@ -18,12 +18,20 @@ class CompaniesView(View):
             Company.companies.filter(is_active=True)
             .select_related('industry').prefetch_related(
                 Prefetch('rating', queryset=Rating.rating.all()))
-            .only('name', 'industry__name', 'description', 'upload')
+            .only('name', 'industry__name', 'upload')
             .annotate(sum_points=Sum('rating__points'))
-            .order_by('-sum_points')
+            .order_by('industry__name', '-sum_points')
             .all()
         )
-        context = {'companies': companies}
+
+        industry_sort = dict()
+        for company in companies:
+            if company.industry in industry_sort:
+                industry_sort[company.industry].append(company)
+            else:
+                industry_sort[company.industry] = [company]
+
+        context = {'companies_by_industry': industry_sort}
         return render(request, self.template, context)
 
 
