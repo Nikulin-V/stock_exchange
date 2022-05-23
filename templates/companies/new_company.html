@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Основать компанию
+{% endblock %}
+
+{% block content %}
+    {{ form.media }}
+    <div class="mt-5 mx-auto text-center form">
+        <h3>Основать компанию</h3>
+        <h5 class="mb-5">Стоимость создания компании: {{ new_company_cost }} <i class="bi bi-coin"></i></h5>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-4">
+                    {{ form.name.label_tag }}
+                </div>
+                <div class="col-8">
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-4">
+                    {{ form.description.label_tag }}
+                </div>
+                <div class="col-8">
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-4">
+                    {{ form.industry.label_tag }}
+                </div>
+                <div class="col-8">
+                    {{ form.industry }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-4">
+                    {{ form.logo.label_tag }}
+                </div>
+                <div class="col-8">
+                    {{ form.logo }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-4">
+                    {{ form.photo1.label_tag }}
+                </div>
+                <div class="col-8">
+                    {{ form.photo1 }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-4">
+                    {{ form.photo2.label_tag }}
+                </div>
+                <div class="col-8">
+                    {{ form.photo2 }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-4">
+                    {{ form.photo3.label_tag }}
+                </div>
+                <div class="col-8">
+                    {{ form.photo3 }}
+                </div>
+            </div>
+            <p>{{ form.errors }}</p>
+            {% for error in errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+            <input class="btn btn-aqua mx-auto" type="submit" value="Подтвердить"/>
+        </form>
+    </div>
+
+{% endblock %}

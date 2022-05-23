@@ -2,4 +2,9 @@
 venv
 .env
 db.sqlite3
+static/admin
+static/debug_toolbar
+static/tinymce
+static/django_tinymce
 .log
+media/uploads/

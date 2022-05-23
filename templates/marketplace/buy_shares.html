@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Купить акции
+{% endblock %}
+
+{% block content %}
+
+    {% if form %}
+        <div class="mt-5 mx-auto text-center">
+            <h3 class="mb-5">Продажа акций</h3>
+
+            <form method="post" class="form mx-auto mb-5">
+                {% csrf_token %}
+                <div class="container">
+                    <div class="row mb-3 mw-75">
+                        <div class="col">
+                            {{ form.seller.label_tag }}
+                        </div>
+                        <div class="col">
+                            {{ form.seller }}
+                        </div>
+                    </div>
+                    <div class="row mb-3 mw-75">
+                        <div class="col">
+                            {{ form.company.label_tag }}
+                        </div>
+                        <div class="col">
+                            {{ form.company }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            {{ form.price.label_tag }}
+                        </div>
+                        <div class="col">
+                            {{ form.price }}
+                            <i class="bi bi-coin"></i>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            Комиссия:
+                        </div>
+                        <div class="col">
+                            <span id="fee">{{ fee }}</span>%
+                            <i class="bi bi-coin"></i>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            Стоимость с комиссией:
+                        </div>
+                        <div class="col">
+                            <span id="cost">{{ cost }}</span> <i class="bi bi-coin"></i>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            {{ form.shares.label_tag }}
+                        </div>
+                        <div class="col">
+                            {{ form.shares }}
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-dark mx-auto" type="submit">Купить</button>
+            </form>
+
+            {% for message in messages %}
+                <p class="text-success">{{ message }}</p>
+            {% endfor %}
+
+            {% for error in errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <p class="text-center text-danger">Неверная ссылка покупки акций.</p>
+    {% endif %}
+
+    {% load static %}
+    <script src="{% static '/js/buy_shares.js' %}"></script>
+{% endblock %}

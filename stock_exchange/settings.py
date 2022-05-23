@@ -1,6 +1,8 @@
+import mimetypes
 import os
 from pathlib import Path
 
+import tinymce
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,6 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sorl.thumbnail',
+    'django_cleanup.apps.CleanupConfig',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -93,7 +98,7 @@ EMAIL_FILE_PATH = BASE_DIR / 'sent_email'
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -102,9 +107,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'static',
-)
+STATIC_ROOT = BASE_DIR / 'static/'
+
+mimetypes.add_type('application/javascript', '.js')
 
 # Additional conditions for user verification
 
@@ -115,13 +120,16 @@ AUTHENTICATION_BACKENDS = ('users.backends.EmailBackend',)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INTERNAL_IPS = [
-    "127.0.0.1",
+    '127.0.0.1',
 ]
 
 LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/auth/profile/'
 LOGOUT_REDIRECT_URL = '/auth/login/'
 AUTH_USER_MODEL = 'users.CustomUser'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 
 if DEBUG:
     INSTALLED_APPS += ['debug_toolbar']

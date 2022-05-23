@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Компании
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8">
+                <h2>Компании</h2>
+            </div>
+            <div class="col-4 pt-1 text-end">
+                <a href="/companies/new">
+                    <h4 class="btn btn-outline-aqua">Открыть компанию</h4>
+                </a>
+            </div>
+        </div>
+        <hr>
+        Это страница распределения очков доверия между компаниями. Введите количество очков и
+        нажмите кнопку "Сохранить". Имейте в виду, что на каждую отрасль в сумме вы можете
+        установить не больше 100 очков доверия.
+
+        <form method="post">
+            {% load filters %}
+            {% csrf_token %}
+            {% with form.get_points_fields as points_field %}
+                {% for category, items in companies_by_industry.items %}
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                        <tr>
+                            <td class="col-4">Компания</td>
+                            <td class="col-4">Очки доверия</td>
+                            <td class="col-4">Установить очки доверия</td>
+                        </tr>
+                        </thead>
+                        {% ifchanged %}
+                            <caption class="caption-top">
+                                {{ category }}
+                            </caption>
+                        {% endifchanged %}
+                        {% for company in items %}
+                            <tr>
+                                <td class="text-nowrap">
+                                    <a class="company-link" href="/companies/{{ company.name }}">
+                                        {{ company.name }}
+                                        {% if company.upload %}
+                                            <img src="{{ company.upload.url }}" width="30"
+                                                 alt="{{ company.name }} logo">
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>
+                                    {% if company.sum_points %}
+                                        {{ company.sum_points }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ points_field|iter }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% empty %}
+                    <tr>
+                        <td>
+                            Список пуст. Эй, админ, добавь инфы!
+                        </td>
+                    </tr>
+                {% endfor %}
+                <input class="btn btn-aqua mx-auto" type="submit" value="Сохранить"/>
+            {% endwith %}
+        </form>
+    </div>
+{% endblock %}

@@ -17,15 +17,24 @@ class ProfileView(View):
     def get(self, request):
         user = request.user
 
-        shares = Shares.objects.filter(user=user) \
-            .select_related('company').select_related('company__industry') \
-            .only('count', 'company__name', 'company__is_active', 'company__industry__name')\
-            .order_by('-count', 'company__industry__name').all()
+        shares = (
+            Shares.shares.filter(user=user)
+            .select_related('company')
+            .select_related('company__industry')
+            .only(
+                'count',
+                'company__name',
+                'company__is_active',
+                'company__industry__name',
+            )
+            .order_by('-count', 'company__industry__name')
+            .all()
+        )
         form = ProfileView.form(
             initial={
                 'first_name': user.first_name,
                 'last_name': user.last_name,
-                'email': user.email
+                'email': user.email,
             }
         )
         context = {'form': form, 'shares': shares}
@@ -35,12 +44,15 @@ class ProfileView(View):
         user = request.user
         form = ProfileView.form(request.POST)
         if form.is_valid():
-            user.first_name = form.cleaned_data['first_name'] if form.cleaned_data[
-                'first_name'] else user.first_name
-            user.last_name = form.cleaned_data['last_name'] if form.cleaned_data[
-                'last_name'] else user.last_name
-            user.email = form.cleaned_data['email'] if form.cleaned_data[
-                'email'] else user.email
+            user.first_name = (
+                form.cleaned_data['first_name']
+                if form.cleaned_data['first_name']
+                else user.first_name
+            )
+            user.last_name = (
+                form.cleaned_data['last_name'] if form.cleaned_data['last_name'] else user.last_name
+            )
+            user.email = form.cleaned_data['email'] if form.cleaned_data['email'] else user.email
             user.save()
             return HttpResponseRedirect(reverse('profile'))
 
@@ -59,9 +71,11 @@ class SignupView(View):
     def post(self, request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = User.objects.create(username=form.cleaned_data['username'],
-                                       first_name=form.cleaned_data['first_name'],
-                                       last_name=form.cleaned_data['last_name'])
+            user = User.objects.create(
+                username=form.cleaned_data['username'],
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+            )
 
             user.set_password(form.cleaned_data['password'])
             user.save()
