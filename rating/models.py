@@ -1,7 +1,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
-from companies.models import Company
 from users.models import CustomUser
 
 
@@ -24,7 +23,7 @@ class Rating(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(100)],
     )
     company = models.ForeignKey(
-        Company,
+        'companies.Company',
         verbose_name='Компания',
         on_delete=models.CASCADE,
         related_name='rating',

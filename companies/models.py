@@ -2,6 +2,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.safestring import mark_safe
 
+from companies.managers import CompanyManager
 from users.models import CustomUser
 from tinymce.models import HTMLField
 from sorl.thumbnail import get_thumbnail
@@ -27,10 +28,6 @@ class Industry(models.Model):
     class Meta:
         verbose_name = 'Отрасль'
         verbose_name_plural = 'Отрасли'
-
-
-class CompanyManager(models.Manager):
-    pass
 
 
 class Company(models.Model):
