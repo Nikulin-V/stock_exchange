@@ -1,20 +1,13 @@
-from datetime import timedelta
-
 from django.contrib.auth import get_user_model
-from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.utils import timezone
 from django.views import View
 from marketplace.models import Shares
-from rating.models import Rating
-from stock_exchange.game_config import EARNING, EARNING_TIME_SECONDS
 
 from users.forms import UserChangeForm, UserRegistrationForm
 
 User = get_user_model()
-last_time = timezone.now()
 
 
 class ProfileView(View):
@@ -22,35 +15,6 @@ class ProfileView(View):
     form = UserChangeForm
 
     def get(self, request):
-        global last_time
-        if (timezone.now() - last_time).seconds >= EARNING_TIME_SECONDS:
-            multiplier = (timezone.now() - last_time).seconds // EARNING_TIME_SECONDS
-            last_time = timezone.now() + timedelta(seconds=(
-                    (timezone.now() - last_time).seconds % EARNING_TIME_SECONDS)
-            )
-
-            data = Rating.rating.get_companies_rating_dict()
-            for key in data:
-                for company, percentage in data[key].items():
-                    if company == 'total_points':
-                        continue
-                    company_profit = percentage * multiplier * EARNING / 100
-                    count_count = (
-                        Shares.shares.select_related('company')
-                        .filter(company__name=company)
-                        .aggregate(amount=Sum('count'))['amount']
-                    )
-
-                    stockholders = (
-                        Shares.shares.select_related("company")
-                        .filter(company__name=company)
-                        .select_related("user")
-                    )
-                    for stockholder in stockholders:
-                        user = stockholder.user
-                        user.balance += stockholder.count / count_count * company_profit
-                        user.save()
-
         user = request.user
 
         shares = (

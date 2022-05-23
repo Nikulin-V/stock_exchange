@@ -50,14 +50,20 @@ class CompaniesView(View):
             for industry in industries_names:
                 industries.update({industry: 0})
 
-            owner_company = Shares.shares.filter(user=user)\
-                .select_related('company')\
-                .values_list('company__name', flat=True).all()
+            owner_company = (
+                Shares.shares.filter(user=user)
+                .select_related('company')
+                .values_list('company__name', flat=True)
+                .all()
+            )
 
             for company, trust_points in form.cleaned_data.items():
                 company_name = " ".join(company.split('_')[1:])
-                if trust_points is not None and trust_points >= 0\
-                        and company_name not in owner_company:  # user isn't owner of company
+                if (
+                    trust_points is not None
+                    and trust_points >= 0
+                    and company_name not in owner_company
+                ):  # user isn't owner of company
 
                     company = (
                         Company.companies.filter(name=company_name)
