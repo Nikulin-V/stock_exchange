@@ -1,9 +1,10 @@
 from django.db import models
+from django.db.models import Prefetch, Sum
 from django.utils.safestring import mark_safe
 from sorl.thumbnail import get_thumbnail
 from tinymce.models import HTMLField
 
-from companies.managers import CompanyManager
+from rating.models import Rating
 from users.models import CustomUser
 
 
@@ -29,6 +30,19 @@ class Industry(models.Model):
         verbose_name_plural = 'Отрасли'
 
 
+class CompanyManager(models.Manager):
+    def get_sorted_companies_by_industry(self):
+        return (
+            self.get_queryset()
+                .filter(is_active=True)
+                .select_related('industry')
+                .prefetch_related(Prefetch('rating', queryset=Rating.rating.all()))
+                .only('name', 'industry__name', 'upload')
+                .annotate(sum_points=Sum('rating__points'))
+                .order_by('industry__name', '-sum_points')
+        )
+
+
 class Company(models.Model):
     companies = CompanyManager()
 
@@ -48,7 +62,7 @@ class Company(models.Model):
         max_length=1024,
         blank=True,
         default='Эта компания ничего о себе не сказала, но мы уверены, '
-        'что она очень хорошая!',
+                'что она очень хорошая!',
     )
     stockholders = models.ManyToManyField(
         CustomUser, verbose_name='Акционеры', related_name='companies', blank=True

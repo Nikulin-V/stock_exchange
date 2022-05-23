@@ -29,9 +29,9 @@
                     <table class="table table-hover">
                         <thead class="table-dark">
                         <tr>
-                            <td>Компания</td>
-                            <td>Очки доверия</td>
-                            <td>Ваши очки доверия</td>
+                            <td class="col-4">Компания</td>
+                            <td class="col-4">Очки доверия</td>
+                            <td class="col-4">Установить очки доверия</td>
                         </tr>
                         </thead>
                         {% ifchanged %}
@@ -51,7 +51,11 @@
                                     </a>
                                 </td>
                                 <td>
-                                    {% if company.sum_points %}{{ company.sum_points }}{% else %}0{% endif %}
+                                    {% if company.sum_points %}
+                                        {{ company.sum_points }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {{ points_field|iter }}
