@@ -1,7 +1,7 @@
 from django import forms
-from django.db.models import Prefetch, Sum
 
 from companies.models import Company
+from marketplace.models import Shares
 from rating.models import Rating
 
 
@@ -43,6 +43,10 @@ class ChangeTrustPointsForm(forms.ModelForm):
                 required=False,
                 widget=forms.NumberInput(attrs={'id': i}),
             )
+            company = Company.companies.get(name=name)
+            if user.username in Shares.shares.get_company_stockholders(company):
+                self.fields[field_name].widget.attrs['disabled'] = True
+                Rating.rating.filter(user=user, company=company).delete()
             init = list(filter(lambda x: name in x, user_rating))
             self.initial[field_name] = init[0][1] if init else 0
 

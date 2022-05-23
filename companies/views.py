@@ -7,6 +7,7 @@ from companies.forms import *
 from companies.models import Company, Photo, Industry
 from marketplace.models import Shares
 from rating.models import Rating
+from stock_exchange.game_config import DEFAULT_SHARES_COUNT, NEW_COMPANY_COST
 
 
 def get_dict_of_sorted_companies_by_industry():
@@ -50,7 +51,7 @@ class CompaniesView(View):
                 industries.update({industry: 0})
 
             for company, trust_points in form.cleaned_data.items():
-                if trust_points >= 0:
+                if trust_points is not None and trust_points >= 0:
 
                     company_name = " ".join(company.split('_')[1:])
                     company = (
@@ -121,7 +122,7 @@ class NewCompanyView(View):
 
     def get(self, request):
         form = self.form()
-        context = {'form': form}
+        context = {'form': form, 'new_company_cost': NEW_COMPANY_COST}
         return render(request, self.template, context)
 
     def post(self, request):
@@ -129,11 +130,11 @@ class NewCompanyView(View):
             Photo.objects.create(upload=photo, company=company).save()
 
         form = self.form(request.POST, request.FILES)
-        context = {'form': form}
+        context = {'form': form, 'new_company_cost': NEW_COMPANY_COST}
         if form.is_valid():
             user = request.user
-            if user.balance >= 500:
-                user.balance -= 500
+            if user.balance >= NEW_COMPANY_COST:
+                user.balance -= NEW_COMPANY_COST
                 user.save()
             else:
                 form.add_error('name', 'У вас недостаточно средств')
@@ -152,6 +153,12 @@ class NewCompanyView(View):
             if form.cleaned_data['photo3']:
                 save_photo(form.cleaned_data['photo3'], company)
             company.save()
+
+            Shares.shares.create(
+                user=user,
+                company=company,
+                count=DEFAULT_SHARES_COUNT
+            )
 
             return HttpResponseRedirect(
                 reverse('company', kwargs={'company_name': form.cleaned_data['name']}))

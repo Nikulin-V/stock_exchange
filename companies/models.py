@@ -1,11 +1,10 @@
-from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.safestring import mark_safe
+from sorl.thumbnail import get_thumbnail
+from tinymce.models import HTMLField
 
 from companies.managers import CompanyManager
 from users.models import CustomUser
-from tinymce.models import HTMLField
-from sorl.thumbnail import get_thumbnail
 
 
 class IndustryManager(models.Manager):
@@ -41,9 +40,6 @@ class Company(models.Model):
         verbose_name='Отрасль',
         on_delete=models.SET_DEFAULT,
         related_name='companies',
-    )
-    trust_points = models.IntegerField(
-        'Очки доверия', default=0, validators=[MinValueValidator(0)]
     )
 
     description = HTMLField(

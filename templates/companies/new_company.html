@@ -7,7 +7,8 @@
 {% block content %}
     {{ form.media }}
     <div class="mt-5 mx-auto text-center form">
-        <h3 class="mb-5">Основать компанию</h3>
+        <h3>Основать компанию</h3>
+        <h5 class="mb-5">Стоимость создания компании: {{ new_company_cost }} <i class="bi bi-coin"></i></h5>
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
