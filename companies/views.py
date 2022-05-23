@@ -1,10 +1,11 @@
 from django.db.models import Prefetch, Sum
+from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
-from companies.forms import NewCompanyForm
+from companies.forms import *
 from companies.models import Company, Photo
 from marketplace.models import Shares
 from rating.models import Rating
@@ -12,8 +13,12 @@ from rating.models import Rating
 
 class CompaniesView(View):
     template = 'companies/companies.html'
+    form = ChangeTrustPointsForm
 
     def get(self, request):
+
+        form = self.form()
+
         companies = (
             Company.companies.filter(is_active=True)
             .select_related('industry').prefetch_related(
@@ -31,7 +36,16 @@ class CompaniesView(View):
             else:
                 industry_sort[company.industry] = [company]
 
-        context = {'companies_by_industry': industry_sort}
+        context = {'companies_by_industry': industry_sort, 'form': form}
+        return render(request, self.template, context)
+
+    def post(self, request):
+        form = self.form(request.POST)
+        if form.is_valid():
+            pass
+
+            return HttpResponseRedirect(reverse('companies'))
+        context = {'form': form}
         return render(request, self.template, context)
 
 

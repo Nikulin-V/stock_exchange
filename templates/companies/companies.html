@@ -17,45 +17,53 @@
             </div>
         </div>
         <hr>
-
-        {% for category, items in companies_by_industry.items %}
-            <table class="table table-hover">
-                <thead class="table-dark">
-                <tr>
-                    <td>Компания</td>
-                    <td>Очки доверия</td>
-                    <td>Ваши очки доверия</td>
-                </tr>
-                </thead>
-                {% ifchanged %}
-                    <caption class="caption-top">
-                        {{ category }}
-                    </caption>
-                {% endifchanged %}
-                {% for company in items %}
+        <form method="post">
+            {% load filters %}
+            {% csrf_token %}
+            {% with form.get_points_fields as points_field %}
+                {% for category, items in companies_by_industry.items %}
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                        <tr>
+                            <td>Компания</td>
+                            <td>Очки доверия</td>
+                            <td>Ваши очки доверия</td>
+                        </tr>
+                        </thead>
+                        {% ifchanged %}
+                            <caption class="caption-top">
+                                {{ category }}
+                            </caption>
+                        {% endifchanged %}
+                        {% for company in items %}
+                            <tr>
+                                <td class="text-nowrap">
+                                    <a class="company-link" href="/companies/{{ company.name }}">
+                                        {{ company.name }}
+                                        {% if company.upload %}
+                                            <img src="{{ company.upload.url }}" width="30"
+                                                 alt="{{ company.name }} logo">
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>
+                                    {% if company.sum_points %}{{ company.sum_points }}{% else %}0{% endif %}
+                                </td>
+                                <td>
+                                    {{ points_field|iter }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% empty %}
                     <tr>
-                        <td class="text-nowrap">
-                            <a class="company-link" href="/companies/{{ company.name }}">
-                                {{ company.name }}
-                                {% if company.upload %}
-                                    <img src="{{ company.upload.url }}" width="30"
-                                         alt="{{ company.name }} logo">
-                                {% endif %}
-                            </a>
-                        </td>
                         <td>
-                            {% if company.sum_points %}{{ company.sum_points }}{% else %}0{% endif %}
+                            Список пуст. Эй, админ, добавь инфы!
                         </td>
-                        <td></td>
                     </tr>
                 {% endfor %}
-            </table>
-        {% empty %}
-            <tr>
-                <td>
-                    Список пуст. Эй, админ, добавь инфы!
-                </td>
-            </tr>
-        {% endfor %}
+                <input class="btn btn-aqua mx-auto" type="submit" value="Сохранить"/>
+            {% endwith %}
+        </form>
     </div>
 {% endblock %}
