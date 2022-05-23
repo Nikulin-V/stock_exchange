@@ -27,7 +27,7 @@ class CompaniesView(View):
     form = ChangeTrustPointsForm
 
     def get(self, request):
-        form = self.form()
+        form = self.form(request.user)
 
         industry_sort = get_dict_of_sorted_companies_by_industry()
 
@@ -35,8 +35,8 @@ class CompaniesView(View):
         return render(request, self.template, context)
 
     def post(self, request):
-        form = self.form(request.POST)
         user = request.user
+        form = self.form(user, request.POST)
         user_rating = Rating.rating.filter(user=user).all()
         context = {'form': form}
         if form.is_valid():
@@ -63,8 +63,8 @@ class CompaniesView(View):
                         pass
 
                     elif current_rating:
-                        industries[company.industry.name] += current_rating.points
                         current_rating.points = trust_points
+                        industries[company.industry.name] += current_rating.points
                         to_save.append(current_rating)
 
                     else:
