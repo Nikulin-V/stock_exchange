@@ -152,13 +152,12 @@ class BuySharesView(View):
         if form.is_valid():
             shares = int(form.cleaned_data['shares'])
 
-            print(seller, company, price, shares)
             seller_shares = Lot.lots.filter(
                 company=company,
                 user=seller,
                 price=price
             ).all()
-            print(seller_shares)
+
             if not seller_shares or seller_shares[0].count < shares:
                 context = {
                     'form': form,
