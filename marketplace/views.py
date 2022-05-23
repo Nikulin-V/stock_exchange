@@ -148,7 +148,10 @@ class BuySharesView(View):
             seller.save()
 
             other_stockholders_shares = (
-                Shares.shares.filter(company=company).exclude(user__username=user.username).all()
+                Shares.shares.filter(company=company)
+                .exclude(user__username=user.username)
+                .exclude(user__username=seller.username)
+                .all()
             )
             if other_stockholders_shares:
                 total_company_shares = sum(map(lambda x: x.count, other_stockholders_shares))

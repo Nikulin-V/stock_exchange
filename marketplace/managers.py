@@ -19,5 +19,6 @@ class LotManager(models.Manager):
             self.get_queryset()
             .exclude(user=user)
             .only('count', 'price', 'company__name', 'user__username')
+            .order_by('price')
             .all()
         )
