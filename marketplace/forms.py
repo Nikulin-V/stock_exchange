@@ -21,5 +21,7 @@ class SellSharesForm(forms.Form):
 
 
 class BuySharesForm(forms.Form):
-    company = forms.ChoiceField()
+    seller = forms.CharField(label='Продавец', max_length=255, disabled=True, required=False)
+    company = forms.CharField(label='Компания', disabled=True, required=False)
+    price = forms.FloatField(label='Цена за акцию', disabled=True, required=False)
     shares = forms.IntegerField(label='Акции', required=True, min_value=1)

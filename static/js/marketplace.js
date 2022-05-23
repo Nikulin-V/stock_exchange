@@ -80,7 +80,11 @@ function renderMarketplaceLots(elementSelector='#marketplace-lots') {
         for (let lotId = 0; lotId < lots.marketplace_lots.length; lotId++) {
             let {company, count, price, user} = Object(lots.marketplace_lots[lotId])
             rows += `
-                <tr>
+                <tr onclick="window.location.href = '/marketplace/buy-shares?' +
+                                                    'seller=${user}&' +
+                                                    'company=${company}&' + 
+                                                    'shares=${count}&' +
+                                                    'price=${price}'">
                     <td>
                         <a class="company-link"
                            href="/companies/${company}">

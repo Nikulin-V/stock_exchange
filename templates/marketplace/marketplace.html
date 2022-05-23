@@ -68,7 +68,11 @@
                         </tr>
                     </thead>
                     {% for lot in marketplace_lots %}
-                        <tr>
+                        <tr onclick="window.location.href = '/marketplace/buy-shares?' +
+                                    'seller={{ lot.user.username }}&' +
+                                    'company={{ lot.company.name }}&' +
+                                    'shares={{ lot.count }}&' +
+                                    'price={{ lot.price }}'">
                             <td>{{ lot.company.name }}</td>
                             <td>{{ lot.user.username }}</td>
                             <td>{{ lot.count }}</td>

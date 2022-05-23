@@ -21,7 +21,7 @@ def getShares(sid, data):
         ]
     }
 
-    sio.emit(event_name, data)
+    sio.emit(event_name, data, to=sid)
 
 
 @sio.on('getLots')
@@ -50,7 +50,7 @@ def getLots(sid, data):
         ],
     }
 
-    sio.emit(event_name, data)
+    sio.emit(event_name, data, to=sid)
 
 
 @sio.on('returnLot')
@@ -86,4 +86,4 @@ def returnLot(sid, data):
 
     data = {'message': 'Success'}
 
-    sio.emit(event_name, data)
+    sio.emit(event_name, data, to=sid)
