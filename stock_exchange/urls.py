@@ -4,7 +4,6 @@ from django.urls import include, path
 
 from core.views import SocketAuthView
 
-from companies.views import CompaniesView
 from homepage.views import HomeView
 from marketplace.views import MarketplaceView
 from stock_exchange import settings
@@ -16,7 +15,7 @@ urlpatterns = (
             path('auth/', include('users.urls')),
             path('marketplace/', include('marketplace.urls')),
             path('tinymce/', include('tinymce.urls')),
-            path('companies/<str:company_name>/', CompaniesView.as_view()),
+            path('companies/', include('companies.urls')),
             path('socket-auth/', SocketAuthView.as_view()),
         ]
         + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

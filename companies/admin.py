@@ -12,12 +12,12 @@ class IndustryAdmin(admin.ModelAdmin):
 class GalleryInlined(admin.TabularInline):
     model = Photo
     can_delete = False
-    readonly_fields = ('image', )
+    readonly_fields = ('image',)
 
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'industry', 'is_active', 'image_tmb', 'trust_points')
+    list_display = ('name', 'industry', 'is_active', 'image_tmb',)
     list_editable = ('is_active',)
     list_display_links = ('name',)
     exclude = ('gallery',)
