@@ -23,23 +23,18 @@ class ChangeTrustPointsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        industries = (
+        company_names = (
             Company.companies.filter(is_active=True)
             .select_related('industry').prefetch_related(
                 Prefetch('rating', queryset=Rating.rating.all()))
             .annotate(sum_points=Sum('rating__points'))
             .order_by('industry__name', '-sum_points')
-            .values_list('industry__name', flat=True)
+            .values_list('name', flat=True)
             .all()
         )
-        industry_name = None
-        last_i = 0
-        for i in range(len(industries)):
-            if industries[i] != industry_name:
-                last_i = i
-            industry_name = industries[i]
-            i -= last_i
-            field_name = f'points_{industry_name}_{i}'
+        for i in range(len(company_names)):
+            name = company_names[i]
+            field_name = f'points_{name}'
             self.fields[field_name] = forms.IntegerField(
                 min_value=0, max_value=100, required=False,
                 widget=forms.NumberInput(attrs={'id': i}))
