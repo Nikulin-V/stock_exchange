@@ -12,7 +12,7 @@ class IndustryAdmin(admin.ModelAdmin):
 class GalleryInlined(admin.TabularInline):
     model = Photo
     can_delete = False
-    readonly_fields = ('image', )
+    readonly_fields = ('image',)
 
 
 @admin.register(Company)

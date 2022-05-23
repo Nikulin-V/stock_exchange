@@ -53,8 +53,14 @@ class CompaniesView(View):
                 if trust_points >= 0:
 
                     company_name = " ".join(company.split('_')[1:])
-                    company = Company.companies.filter(name=company_name).select_related('industry').first()
-                    current_rating = user_rating.filter(user=user, company=company).first()
+                    company = (
+                        Company.companies.filter(name=company_name)
+                        .select_related('industry')
+                        .first()
+                    )
+                    current_rating = user_rating.filter(
+                        user=user, company=company
+                    ).first()
 
                     if trust_points == 0 and current_rating:
                         to_delete.append(current_rating)
@@ -69,7 +75,9 @@ class CompaniesView(View):
 
                     else:
                         industries[company.industry.name] += trust_points
-                        to_create.append({'company': company, 'points': trust_points, 'user': user})
+                        to_create.append(
+                            {'company': company, 'points': trust_points, 'user': user}
+                        )
 
             for trust_points_one_industry in industries.values():
                 if trust_points_one_industry > 100:
