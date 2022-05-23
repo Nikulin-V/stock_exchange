@@ -10,6 +10,7 @@ class RatingManager(models.Manager):
 
     def get_companies_rating_dict(self):
         from companies.models import Industry, Company
+
         rating_dict = {}
         industries_names = Industry.industries.all()
         for industry in industries_names:

@@ -70,9 +70,7 @@ class CompaniesView(View):
                         .select_related('industry')
                         .first()
                     )
-                    current_rating = user_rating.filter(
-                        user=user, company=company
-                    ).first()
+                    current_rating = user_rating.filter(user=user, company=company).first()
 
                     if trust_points == 0 and current_rating:
                         to_delete.append(current_rating)
@@ -87,9 +85,7 @@ class CompaniesView(View):
 
                     else:
                         industries[company.industry.name] += trust_points
-                        to_create.append(
-                            {'company': company, 'points': trust_points, 'user': user}
-                        )
+                        to_create.append({'company': company, 'points': trust_points, 'user': user})
 
             for trust_points_one_industry in industries.values():
                 if trust_points_one_industry > 100:
@@ -165,12 +161,9 @@ class NewCompanyView(View):
                 save_photo(form.cleaned_data['photo3'], company)
             company.save()
 
-            Shares.shares.create(
-                user=user,
-                company=company,
-                count=DEFAULT_SHARES_COUNT
-            )
+            Shares.shares.create(user=user, company=company, count=DEFAULT_SHARES_COUNT)
 
             return HttpResponseRedirect(
-                reverse('company', kwargs={'company_name': form.cleaned_data['name']}))
+                reverse('company', kwargs={'company_name': form.cleaned_data['name']})
+            )
         return render(request, self.template, context)

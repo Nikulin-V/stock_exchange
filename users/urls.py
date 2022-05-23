@@ -58,9 +58,5 @@ urlpatterns = [
         PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
         name='password_reset_complete',
     ),
-    path(
-        'profile/',
-        login_required(views.ProfileView.as_view()),
-        name='profile'
-    ),
+    path('profile/', login_required(views.ProfileView.as_view()), name='profile'),
 ]

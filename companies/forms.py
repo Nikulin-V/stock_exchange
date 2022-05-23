@@ -31,7 +31,10 @@ class ChangeTrustPointsForm(forms.ModelForm):
         user_rating = (
             Rating.rating.filter(user=user)
             .select_related('company')
-            .values_list('company__name', 'points',)
+            .values_list(
+                'company__name',
+                'points',
+            )
             .all()
         )
         for i in range(len(company_names)):

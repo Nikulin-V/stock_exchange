@@ -12,7 +12,7 @@ class SellSharesForm(forms.Form):
                 (company_name, company_name)
                 for company_name in Shares.shares.get_user_companies(user)
             ],
-            required=True
+            required=True,
         )
 
     company = forms.ChoiceField(required=True)

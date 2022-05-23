@@ -17,7 +17,12 @@ class GalleryInlined(admin.TabularInline):
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'industry', 'is_active', 'image_tmb',)
+    list_display = (
+        'name',
+        'industry',
+        'is_active',
+        'image_tmb',
+    )
     list_editable = ('is_active',)
     list_display_links = ('name',)
     exclude = ('gallery',)

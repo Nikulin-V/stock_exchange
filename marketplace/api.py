@@ -62,27 +62,15 @@ def returnLot(sid, data):
     shares = int(data['shares'])
     price = float(data['price'])
 
-    Lot.lots.get(
-        user=user,
-        company=company,
-        count=shares,
-        price=price
-    ).delete()
+    Lot.lots.get(user=user, company=company, count=shares, price=price).delete()
 
-    user_shares = Shares.shares.filter(
-        user=user,
-        company=company
-    )
+    user_shares = Shares.shares.filter(user=user, company=company)
 
     if user_shares:
         user_shares[0].count += shares
         user_shares[0].save()
     else:
-        Shares.shares.create(
-            user=user,
-            company=company,
-            count=shares
-        )
+        Shares.shares.create(user=user, company=company, count=shares)
 
     data = {'message': 'Success'}
 

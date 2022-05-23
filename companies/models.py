@@ -39,15 +39,12 @@ class Company(models.Model):
         help_text='Опишите компанию',
         max_length=1024,
         blank=True,
-        default='Эта компания ничего о себе не сказала, но мы уверены, '
-                'что она очень хорошая!',
+        default='Эта компания ничего о себе не сказала, но мы уверены, что она очень хорошая!',
     )
     stockholders = models.ManyToManyField(
         CustomUser, verbose_name='Акционеры', related_name='companies', blank=True
     )
-    upload = models.ImageField(
-        upload_to='uploads/', blank=True, verbose_name='Логотип компании'
-    )
+    upload = models.ImageField(upload_to='uploads/', blank=True, verbose_name='Логотип компании')
     gallery = models.ManyToManyField(
         'companies.Photo',
         blank=True,
@@ -84,9 +81,7 @@ class Company(models.Model):
 class Photo(models.Model):
     upload = models.ImageField(upload_to='uploads/', null=True)
     is_active = models.BooleanField('Активно', default=True)
-    company = models.ForeignKey(
-        Company, verbose_name="Компания", on_delete=models.CASCADE
-    )
+    company = models.ForeignKey(Company, verbose_name="Компания", on_delete=models.CASCADE)
 
     def image(self):
         if self.upload:
