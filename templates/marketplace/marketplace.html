@@ -23,9 +23,10 @@
                     <caption class="caption-top">Ваши акции, продающиеся на торговой площадке</caption>
                     <thead class="table-dark">
                         <tr>
-                            <td class="col-8 text-left">Компания</td>
+                            <td class="col-7 text-left">Компания</td>
                             <td class="col-2">Акции</td>
                             <td class="col-2">Цена за акцию</td>
+                            <td class="col-1"></td>
                         </tr>
                     </thead>
                     {% for lot in user_lots %}
@@ -38,6 +39,12 @@
                             </td>
                             <td>{{ lot.count }}</td>
                             <td>{{ lot.price }}</td>
+                            <td>
+                                <a href="#" onclick="lots.return('{{ lot.company.name }}',
+                                        {{ lot.count }}, {{ lot.price}})">
+                                    ❌
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -61,7 +68,11 @@
                         </tr>
                     </thead>
                     {% for lot in marketplace_lots %}
-                        <tr>
+                        <tr onclick="window.location.href = '/marketplace/buy-shares?' +
+                                    'seller={{ lot.user.username }}&' +
+                                    'company={{ lot.company.name }}&' +
+                                    'shares={{ lot.count }}&' +
+                                    'price={{ lot.price }}'">
                             <td>{{ lot.company.name }}</td>
                             <td>{{ lot.user.username }}</td>
                             <td>{{ lot.count }}</td>

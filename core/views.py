@@ -16,6 +16,6 @@ class SocketAuthView(View):
 
         sio.users[sid] = user.username
         data = {self.event_name: True}
-        sio.emit(self.event_name, data)
+        sio.emit(self.event_name, data, to=sid)
         print(f'Authorized: {user.username} - {sid}')
         return HttpResponse('Сокет успешно авторизован')

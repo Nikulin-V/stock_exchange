@@ -56,4 +56,4 @@ def getUser(sid, data):
         'balance': user.balance,
     }
 
-    sio.emit(event_name, data)
+    sio.emit(event_name, data, to=sid)

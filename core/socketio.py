@@ -8,7 +8,10 @@ sio.users = dict()
 
 @sio.event
 def disconnect(sid):
-    del sio.users[sid]
+    try:
+        del sio.users[sid]
+    except KeyError:
+        pass
     print('Disconnected: ' + sid)
 
 

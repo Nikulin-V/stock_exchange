@@ -73,7 +73,9 @@
                         </tr>
                         </thead>
                         {% for share in shares %}
-                            <tr>
+                            <tr onclick="window.location.href = '/marketplace/sell-shares?' +
+                                    'company={{ share.company.name }}&' +
+                                    'shares={{ share.count }}'">
                                 <td>{{ share.company.industry.name }}</td>
                                 <td>
                                     <a class="company-link"
