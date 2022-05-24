@@ -29,7 +29,12 @@ function renderShares(elementSelector='#shares') {
     } else {
         let rows = ``
         for (let shareId = 0; shareId < shares.shares.length; shareId++) {
-            let {company, count, industry} = Object(shares.shares[shareId])
+            let {company, companyLogoUrl, count, industry} = Object(shares.shares[shareId])
+            let companyLogo = ``
+            if (companyLogoUrl)
+                companyLogo = `<img src="${companyLogoUrl}" width="30"
+                                     alt="${company} logo">`
+
             rows += `
                 <tr onclick="window.location.href = '/marketplace/sell-shares?' +
                                     'company=${company}&' + 
@@ -38,10 +43,10 @@ function renderShares(elementSelector='#shares') {
                     <td>
                         <a class="company-link"
                            href="/companies/${company}">
-                            ${company}
+                            ${company} ${companyLogo}
                         </a>
                     </td>
-                    <td>${count}</td>
+                    <td>${(count)}</td>
                 </tr>
             `
         }

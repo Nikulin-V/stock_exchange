@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
-from companies.forms import *
+from companies.forms import ChangeTrustPointsForm, NewCompanyForm
 from companies.models import Company, Photo, Industry
 from marketplace.models import Shares
 from rating.models import Rating
@@ -46,9 +46,7 @@ class CompaniesView(View):
             to_create = list()
 
             industries_names = Industry.industries.values_list('name', flat=True)
-            industries = dict()
-            for industry in industries_names:
-                industries.update({industry: 0})
+            industries = {industry: 0 for industry in industries_names}
 
             owner_company = (
                 Shares.shares.filter(user=user)
@@ -133,8 +131,8 @@ class NewCompanyView(View):
         return render(request, self.template, context)
 
     def post(self, request):
-        def save_photo(photo, company):
-            Photo.objects.create(upload=photo, company=company).save()
+        def save_photo(photo, company_object):
+            Photo.objects.create(upload=photo, company=company_object).save()
 
         form = self.form(request.POST, request.FILES)
         context = {'form': form, 'new_company_cost': NEW_COMPANY_COST}

@@ -3,9 +3,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 from core.views import SocketAuthView
-
 from homepage.views import HomeView
-from marketplace.views import MarketplaceView
 from stock_exchange import settings
 
 urlpatterns = (

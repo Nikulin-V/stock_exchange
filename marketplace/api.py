@@ -4,7 +4,8 @@ from marketplace.models import Lot, Shares
 
 
 @sio.on('getShares')
-def getShares(sid, data):
+def getShares(*args):
+    sid, data = args
     event_name = 'getShares'
 
     user = get_socket_user(sid)
@@ -15,6 +16,7 @@ def getShares(sid, data):
             {
                 'count': s.count,
                 'company': s.company.name,
+                'companyLogoUrl': s.company.upload.url if s.company.upload else '',
                 'industry': s.company.industry.name,
             }
             for s in user_shares
@@ -25,7 +27,8 @@ def getShares(sid, data):
 
 
 @sio.on('getLots')
-def getLots(sid, data):
+def getLots(*args):
+    sid, data = args
     event_name = 'getLots'
 
     user = get_socket_user(sid)
@@ -36,6 +39,7 @@ def getLots(sid, data):
                 'count': lot.count,
                 'price': lot.price,
                 'company': lot.company.name,
+                'companyLogoUrl': lot.company.upload.url if lot.company.upload else '',
             }
             for lot in Lot.lots.get_user_lots(user)
         ],
@@ -44,6 +48,7 @@ def getLots(sid, data):
                 'count': lot.count,
                 'price': lot.price,
                 'company': lot.company.name,
+                'companyLogoUrl': lot.company.upload.url if lot.company.upload else '',
                 'user': lot.user.username,
             }
             for lot in Lot.lots.get_marketplace_lots(user)

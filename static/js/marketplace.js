@@ -34,13 +34,15 @@ function renderUserLots(elementSelector='#user-lots') {
     } else {
         let rows = ``
         for (let lotId = 0; lotId < lots.user_lots.length; lotId++) {
-            let {company, count, price} = Object(lots.user_lots[lotId])
+            let {company, companyLogoUrl, count, price} = Object(lots.user_lots[lotId])
             rows += `
                 <tr>
                     <td>
                         <a class="company-link"
                            href="/companies/${company}">
                             ${company}
+                            <img src="${companyLogoUrl}" width="30"
+                                 alt="${company} logo">
                         </a>
                     </td>
                     <td>${count}</td>
@@ -78,7 +80,11 @@ function renderMarketplaceLots(elementSelector='#marketplace-lots') {
     } else {
         let rows = ``
         for (let lotId = 0; lotId < lots.marketplace_lots.length; lotId++) {
-            let {company, count, price, user} = Object(lots.marketplace_lots[lotId])
+            let {company, companyLogoUrl, count, price, user} = Object(lots.marketplace_lots[lotId])
+            let companyLogo = ``
+            if (companyLogoUrl)
+                companyLogo = `<img src="${companyLogoUrl}" width="30"
+                                     alt="${company} logo">`
             rows += `
                 <tr onclick="window.location.href = '/marketplace/buy-shares?' +
                                                     'seller=${user}&' +
@@ -88,7 +94,7 @@ function renderMarketplaceLots(elementSelector='#marketplace-lots') {
                     <td>
                         <a class="company-link"
                            href="/companies/${company}">
-                            ${company}
+                            ${company} ${companyLogo}
                         </a>
                     </td>
                     <td>${user}</td>
