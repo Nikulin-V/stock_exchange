@@ -10,7 +10,7 @@ from companies.managers import CompanyManager, IndustryManager
 from rating.models import Rating
 from users.models import CustomUser
 
-ALPHABET = set(ascii_lowercase + 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя ' + '1234567890' + '_')
+ALPHABET = set(ascii_lowercase + 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя ' + '1234567890' + '_-')
 
 
 class Industry(models.Model):
