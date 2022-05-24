@@ -1,11 +1,15 @@
-from django.db import models
+from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 from sorl.thumbnail import get_thumbnail
 from tinymce.models import HTMLField
+from string import ascii_lowercase
+from django.utils.translation import gettext_lazy as _
 
 from companies.managers import *
 from rating.models import Rating
 from users.models import CustomUser
+
+ALPHABET = set(ascii_lowercase + 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя ' + '1234567890' + '_')
 
 
 class Industry(models.Model):
@@ -21,10 +25,20 @@ class Industry(models.Model):
         verbose_name_plural = 'Отрасли'
 
 
+def validate_string(value):
+    if all(letter in ALPHABET for letter in value.lower()):
+        return True
+    raise ValidationError(
+        _('Неверное значение: %(value)s'),
+        params={'value': value},
+)
+
+
 class Company(models.Model):
     companies = CompanyManager()
 
-    name = models.CharField('Название компании', unique=True, max_length=255)
+    name = models.CharField('Название компании', unique=True, max_length=255,
+                            validators=[validate_string])
     is_active = models.BooleanField('Активно', default=True)
     industry = models.ForeignKey(
         Industry,
