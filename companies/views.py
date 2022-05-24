@@ -46,9 +46,7 @@ class CompaniesView(View):
             to_create = list()
 
             industries_names = Industry.industries.values_list('name', flat=True)
-            industries = dict()
-            for industry in industries_names:
-                industries.update({industry: 0})
+            industries = {industry: 0 for industry in industries_names}
 
             owner_company = (
                 Shares.shares.filter(user=user)
