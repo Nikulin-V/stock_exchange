@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.utils.safestring import mark_safe
 from sorl.thumbnail import get_thumbnail
 from tinymce.models import HTMLField
@@ -31,14 +32,15 @@ def validate_string(value):
     raise ValidationError(
         _('Неверное значение: %(value)s'),
         params={'value': value},
-)
+    )
 
 
 class Company(models.Model):
     companies = CompanyManager()
 
-    name = models.CharField('Название компании', unique=True, max_length=255,
-                            validators=[validate_string])
+    name = models.CharField(
+        'Название компании', unique=True, max_length=255, validators=[validate_string]
+    )
     is_active = models.BooleanField('Активно', default=True)
     industry = models.ForeignKey(
         Industry,

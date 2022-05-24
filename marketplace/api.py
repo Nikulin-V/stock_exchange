@@ -16,6 +16,7 @@ def getShares(*args):
             {
                 'count': s.count,
                 'company': s.company.name,
+                'companyLogoUrl': s.company.upload.url if s.company.upload else '',
                 'industry': s.company.industry.name,
             }
             for s in user_shares
@@ -38,6 +39,7 @@ def getLots(*args):
                 'count': lot.count,
                 'price': lot.price,
                 'company': lot.company.name,
+                'companyLogoUrl': lot.company.upload.url if lot.company.upload else '',
             }
             for lot in Lot.lots.get_user_lots(user)
         ],
@@ -46,6 +48,7 @@ def getLots(*args):
                 'count': lot.count,
                 'price': lot.price,
                 'company': lot.company.name,
+                'companyLogoUrl': lot.company.upload.url if lot.company.upload else '',
                 'user': lot.user.username,
             }
             for lot in Lot.lots.get_marketplace_lots(user)
