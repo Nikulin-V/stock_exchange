@@ -1,3 +1,4 @@
+# noinspection PyPackageRequirements
 import socketio
 
 from users.models import CustomUser
@@ -29,4 +30,4 @@ def get_socket_user(sid):
 
 
 # noinspection PyUnresolvedReferences
-from .all_apis import *
+from core import all_apis

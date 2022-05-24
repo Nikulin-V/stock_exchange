@@ -3,7 +3,7 @@ from django.db import models
 
 from companies.models import Company
 from users.models import CustomUser
-from .managers import *
+from .managers import LotManager, SharesManager
 
 
 class Shares(models.Model):

@@ -4,7 +4,8 @@ from marketplace.models import Lot, Shares
 
 
 @sio.on('getShares')
-def getShares(sid, data):
+def getShares(*args):
+    sid, data = args
     event_name = 'getShares'
 
     user = get_socket_user(sid)
@@ -25,7 +26,8 @@ def getShares(sid, data):
 
 
 @sio.on('getLots')
-def getLots(sid, data):
+def getLots(*args):
+    sid, data = args
     event_name = 'getLots'
 
     user = get_socket_user(sid)

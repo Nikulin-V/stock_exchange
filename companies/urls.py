@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import path
 
-from companies.views import *
+from companies.views import CompanyView, CompaniesView, NewCompanyView
 
 urlpatterns = [
     path('', CompaniesView.as_view(), name='companies'),

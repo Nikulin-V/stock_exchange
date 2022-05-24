@@ -35,7 +35,8 @@ def income(multiplier):
 
 
 @sio.on('getUser')
-def getUser(sid, data):
+def getUser(*args):
+    sid, data = args
     event_name = 'getUser'
 
     global last_time

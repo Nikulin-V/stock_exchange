@@ -1,6 +1,7 @@
 import os
 
 import eventlet.wsgi
+# noinspection PyPackageRequirements
 import socketio
 from django.core.wsgi import get_wsgi_application
 

@@ -3,7 +3,7 @@ from django.utils.safestring import mark_safe
 from sorl.thumbnail import get_thumbnail
 from tinymce.models import HTMLField
 
-from companies.managers import *
+from companies.managers import CompanyManager, IndustryManager
 from rating.models import Rating
 from users.models import CustomUser
 
