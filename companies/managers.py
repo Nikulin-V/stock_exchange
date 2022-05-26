@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models import Prefetch, Sum, QuerySet
 
-from companies.models import Company
 from rating.models import Rating
 
 
@@ -20,7 +19,7 @@ class IndustryManager(models.Manager):
 
 
 class CompanyManager(models.Manager):
-    def get_sorted_companies_by_industry(self) -> QuerySet[Company]:
+    def get_sorted_companies_by_industry(self) -> QuerySet:
         """Get QuerySet Companies ordered by their trust points"""
         return (
             self.get_queryset()

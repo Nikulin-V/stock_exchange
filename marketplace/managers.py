@@ -1,7 +1,6 @@
 from django.db import models
 
 from companies.models import Company
-from marketplace.models import Lot
 from stock_exchange.middleware import get_current_user
 from users.models import CustomUser
 
@@ -33,7 +32,7 @@ class SharesManager(models.Manager):
 
 
 class LotManager(models.Manager):
-    def get_user_lots(self, user: CustomUser = get_current_user()) -> list[Lot]:
+    def get_user_lots(self, user: CustomUser = get_current_user()) -> list:
         """
         Get user lots on marketplace
 
@@ -47,7 +46,7 @@ class LotManager(models.Manager):
             .all()
         )
 
-    def get_marketplace_lots(self, user: CustomUser = get_current_user()) -> list[Lot]:
+    def get_marketplace_lots(self, user: CustomUser = get_current_user()) -> list:
         """
         Get marketplace lots except user lots
 
