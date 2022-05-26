@@ -1,8 +1,8 @@
 from django import forms
 
 from companies.models import Company
-from marketplace.models import Shares
 from rating.models import Rating
+from users.models import CustomUser
 
 
 class NewCompanyForm(forms.ModelForm):
@@ -17,11 +17,12 @@ class NewCompanyForm(forms.ModelForm):
 
 
 class ChangeTrustPointsForm(forms.ModelForm):
-    class Meta:
-        model = Rating
-        exclude = ('points', 'company', 'user')
+    def __init__(self, user: CustomUser, *args, **kwargs):
+        """
+        Form of changing companies trust points
 
-    def __init__(self, user, *args, **kwargs):
+        :param user: current user object
+        """
         super().__init__(*args, **kwargs)
         company_names = (
             Company.companies.get_sorted_companies_by_industry()
@@ -49,7 +50,12 @@ class ChangeTrustPointsForm(forms.ModelForm):
             init = list(filter(lambda x: name in x, user_rating))
             self.initial[field_name] = init[0][1] if init else 0
 
+    class Meta:
+        model = Rating
+        exclude = ('points', 'company', 'user')
+
     def get_points_fields(self):
+        """Returns form points fields"""
         for field_name in self.fields:
             if field_name.startswith('points_'):
                 yield self[field_name]

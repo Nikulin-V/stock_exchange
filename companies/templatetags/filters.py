@@ -8,6 +8,7 @@ def index(indexable, i):
     return indexable[i]
 
 
+# noinspection PyShadowingBuiltins
 @register.filter
 def iter(gen):
     try:

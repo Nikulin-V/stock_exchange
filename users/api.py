@@ -10,7 +10,12 @@ from stock_exchange.game_config import EARNING, EARNING_TIME_SECONDS
 last_time = timezone.now()
 
 
-def income(multiplier):
+def income(multiplier: int):
+    """
+    Accrues profit to stockholders
+
+    :param multiplier: multiplier that calculates due to last income time
+    """
     data = Rating.rating.get_companies_rating_dict()
     for key in data:
         for company, percentage in data[key].items():
@@ -36,9 +41,15 @@ def income(multiplier):
 
 @sio.on('getUser')
 def getUser(*args):
+    """
+    Returns info user
+
+    :param args: session id
+    """
     sid, data = args
     event_name = 'getUser'
 
+    # Check last time of profit accruing to stockholders
     global last_time
     if (timezone.now() - last_time).seconds >= EARNING_TIME_SECONDS:
         multiplier = (timezone.now() - last_time).seconds // EARNING_TIME_SECONDS

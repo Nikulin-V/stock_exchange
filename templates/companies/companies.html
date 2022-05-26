@@ -64,11 +64,7 @@
                         {% endfor %}
                     </table>
                 {% empty %}
-                    <tr>
-                        <td>
-                            Список пуст. Эй, админ, добавь инфы!
-                        </td>
-                    </tr>
+                    <p>Компаний нет. Создайте первую!</p>
                 {% endfor %}
                 <input class="btn btn-aqua mx-auto" type="submit" value="Сохранить"/>
             {% endwith %}

@@ -5,6 +5,11 @@ from marketplace.models import Lot, Shares
 
 @sio.on('getShares')
 def getShares(*args):
+    """
+    Returns info about user shares
+
+    :param args: session id
+    """
     sid, data = args
     event_name = 'getShares'
 
@@ -28,6 +33,11 @@ def getShares(*args):
 
 @sio.on('getLots')
 def getLots(*args):
+    """
+    Returns info about user lots and lots on the marketplace
+
+    :param args: session id
+    """
     sid, data = args
     event_name = 'getLots'
 
@@ -59,7 +69,13 @@ def getLots(*args):
 
 
 @sio.on('returnLot')
-def returnLot(sid, data):
+def returnLot(sid, data: dict):
+    """
+    Event of returning lot from marketplace to user shares portfolio
+
+    :param sid: socket session id
+    :param data: json with company name, shares count and price per share
+    """
     event_name = 'returnLot'
 
     user = get_socket_user(sid)

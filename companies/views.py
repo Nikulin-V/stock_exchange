@@ -10,7 +10,12 @@ from rating.models import Rating
 from stock_exchange.game_config import DEFAULT_SHARES_COUNT, NEW_COMPANY_COST
 
 
-def get_dict_of_sorted_companies_by_industry():
+def get_dict_of_sorted_companies_by_industry() -> dict:
+    """
+    Get dictionary with Industries and its Companies sorted by their trust points
+
+    :return: dict[Industry] = [Company1, Company2, ...]
+    """
     companies = Company.companies.get_sorted_companies_by_industry().all()
 
     industry_sort = dict()
@@ -24,6 +29,7 @@ def get_dict_of_sorted_companies_by_industry():
 
 
 class CompaniesView(View):
+    """Companies page"""
     template = 'companies/companies.html'
     form = ChangeTrustPointsForm
 
@@ -103,9 +109,10 @@ class CompaniesView(View):
 
 
 class CompanyView(View):
+    """Specified company page"""
     template = 'companies/company.html'
 
-    def get(self, request, company_name):
+    def get(self, request, company_name: str):
         company = (
             Company.companies.filter(name=company_name)
             .select_related('industry')
@@ -122,6 +129,7 @@ class CompanyView(View):
 
 
 class NewCompanyView(View):
+    """Page of creating new company"""
     template = 'companies/new_company.html'
     form = NewCompanyForm
 

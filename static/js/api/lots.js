@@ -31,6 +31,7 @@ lots.return = function (company=null,
     socket.emit('returnLot', data)
 }
 
+// noinspection JSUnusedLocalSymbols
 socket.on('returnLot', function (data) {
     renderPage()
     if (lots.returnFn)

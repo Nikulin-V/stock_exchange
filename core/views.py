@@ -6,6 +6,7 @@ from .socketio import sio
 
 
 class SocketAuthView(View):
+    """Page of connecting socket session id and user"""
     event_name = 'isAuthorized'
 
     def post(self, request):
@@ -17,5 +18,4 @@ class SocketAuthView(View):
         sio.users[sid] = user.username
         data = {self.event_name: True}
         sio.emit(self.event_name, data, to=sid)
-        print(f'Authorized: {user.username} - {sid}')
         return HttpResponse('Сокет успешно авторизован')

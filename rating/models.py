@@ -8,7 +8,12 @@ class RatingManager(models.Manager):
     def get_queryset(self):
         return super(RatingManager, self).get_queryset().filter(company__is_active=True).all()
 
-    def get_companies_rating_dict(self):
+    def get_companies_rating_dict(self) -> dict:
+        """
+        Get dictionary of companies trust points and maximum trust points per industry
+
+        :return: dict[Industry.name][Company.name] = trust_points
+        """
         from companies.models import Industry, Company
 
         rating_dict = {}
