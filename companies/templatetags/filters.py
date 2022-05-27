@@ -15,3 +15,10 @@ def iter(gen):
         return next(gen)
     except StopIteration:
         return 'Completed Iteration'
+
+
+@register.filter
+def exists(choice):
+    for field in choice:
+        return field
+    return False
