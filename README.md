@@ -26,8 +26,7 @@
 4. Создайте аккаунт администратора\
 `python manage.py createsuperuser`
 5. Запустите сайт\
-`python manage.py runserver 8000 --insecure`
->Аргумент `--insecure` необходим для правильной работы статических файлов
+`python manage.py runserver 8000`
 6. Сгенерируйте статические файлы\
 `python manage.py collectstatic`
 
