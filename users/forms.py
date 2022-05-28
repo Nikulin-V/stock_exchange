@@ -5,6 +5,7 @@ User = get_user_model()
 
 
 class UserRegistrationForm(forms.ModelForm):
+    """Form of user registration"""
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput())
     password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput)
 
@@ -19,6 +20,7 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
+    """Form of changing user information"""
     class Meta:
         model = User
         fields = 'first_name', 'last_name', 'email'

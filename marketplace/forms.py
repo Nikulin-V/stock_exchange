@@ -1,10 +1,16 @@
 from django import forms
 
 from marketplace.models import Shares
+from users.models import CustomUser
 
 
 class SellSharesForm(forms.Form):
-    def __init__(self, user, *args, **kwargs):
+    """
+    Form of selling shares
+
+    :param user: current user object
+    """
+    def __init__(self, user: CustomUser, *args, **kwargs):
         super(SellSharesForm, self).__init__(*args, **kwargs)
         self.fields['company'] = forms.ChoiceField(
             label='Компания',
@@ -21,6 +27,7 @@ class SellSharesForm(forms.Form):
 
 
 class BuySharesForm(forms.Form):
+    """Form of shares purchase"""
     seller = forms.CharField(label='Продавец', max_length=255, disabled=True, required=False)
     company = forms.CharField(label='Компания', disabled=True, required=False)
     price = forms.FloatField(label='Цена за акцию', disabled=True, required=False)

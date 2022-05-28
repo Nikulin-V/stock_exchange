@@ -11,6 +11,7 @@ User = get_user_model()
 
 
 class ProfileView(View):
+    """User profile page"""
     template = 'users/profile.html'
     form = UserChangeForm
 
@@ -61,6 +62,7 @@ class ProfileView(View):
 
 
 class SignupView(View):
+    """Registration page"""
     template = 'users/signup.html'
 
     def get(self, request):

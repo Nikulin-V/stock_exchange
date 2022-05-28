@@ -7,7 +7,13 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / '.env')
+if os.path.exists(BASE_DIR / '.env'):
+    load_dotenv(BASE_DIR / '.env')
+elif os.path.exists(BASE_DIR / '.env.example'):
+    load_dotenv(BASE_DIR / '.env.example')
+else:
+    print('You should create .env file to run this project.')
+    exit(1)
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 

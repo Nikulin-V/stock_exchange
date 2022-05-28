@@ -11,6 +11,7 @@
         <h5 class="mb-5">Стоимость создания компании: {{ new_company_cost }} <i class="bi bi-coin"></i></h5>
 
         <form method="post" enctype="multipart/form-data">
+            {% load filters %}
             {% csrf_token %}
             <div class="row mb-3">
                 <div class="col-4">
@@ -33,9 +34,14 @@
                     {{ form.industry.label_tag }}
                 </div>
                 <div class="col-8">
-                    {{ form.industry }}
+                    {% if form.industry|exists %}
+                        {{ form.industry }}
+                    {% else %}
+                        Отрасли создаются админами, попросите их создать одну.
+                    {% endif %}
                 </div>
             </div>
+
             <div class="row mb-3">
                 <div class="col-4">
                     {{ form.logo.label_tag }}

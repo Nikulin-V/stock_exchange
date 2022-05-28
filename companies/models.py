@@ -26,7 +26,13 @@ class Industry(models.Model):
         verbose_name_plural = 'Отрасли'
 
 
-def validate_string(value):
+def validate_string(value) -> bool:
+    """
+    Checks if string is suitable for company name
+
+    :param value: new company name
+    :return: True or ValidationError
+    """
     if all(letter in ALPHABET for letter in value.lower()):
         return True
     raise ValidationError(

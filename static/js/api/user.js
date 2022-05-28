@@ -13,6 +13,7 @@ socket.on('getUser', function (data) {
     user.first_name = data['first_name']
     user.last_name = data['last_name']
     user.email = data['email']
+    // noinspection JSCheckFunctionSignatures
     user.balance = parseFloat(data['balance'])
     if (user.getFn)
         user.getFn()

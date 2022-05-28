@@ -11,6 +11,7 @@ from users.models import CustomUser
 
 
 class MarketplaceView(View):
+    """Marketplace page"""
     template = 'marketplace/marketplace.html'
 
     def get(self, request):
@@ -22,6 +23,7 @@ class MarketplaceView(View):
 
 
 class SellSharesView(View):
+    """Shares sale page"""
     template = 'marketplace/sell_shares.html'
 
     def get(self, request):
@@ -75,6 +77,7 @@ class SellSharesView(View):
 
 
 class BuySharesView(View):
+    """Shares purchase page"""
     template = 'marketplace/buy_shares.html'
     form = BuySharesForm
 
