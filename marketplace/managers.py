@@ -11,7 +11,7 @@ class SharesManager(models.Manager):
         Get companies where user is stockholder
 
         :param user: current user object
-        :return: list of companies where user is stockholder
+        :return: list of companies names where user is stockholder
         """
         return sorted(
             self.get_queryset()

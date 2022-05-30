@@ -1,6 +1,7 @@
 from django import forms
 
 from companies.models import Company
+from marketplace.models import Shares
 from rating.models import Rating
 from users.models import CustomUser
 
@@ -38,16 +39,18 @@ class ChangeTrustPointsForm(forms.ModelForm):
             )
             .all()
         )
-        for i in range(len(company_names)):
-            name = company_names[i]
-            field_name = f'points_{name}'
+
+        user_companies_names = Shares.shares.get_user_companies(user)
+        for company_name in company_names:
+            field_name = f'points_{company_name}'
             self.fields[field_name] = forms.IntegerField(
                 min_value=0,
                 max_value=100,
                 required=False,
-                widget=forms.NumberInput(attrs={'id': i}),
+                disabled=True if company_name in user_companies_names else False,
+                widget=forms.NumberInput(attrs={'id': company_name}),
             )
-            init = list(filter(lambda x: name in x, user_rating))
+            init = list(filter(lambda x: company_name in x, user_rating))
             self.initial[field_name] = init[0][1] if init else 0
 
     class Meta:
