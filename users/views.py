@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -10,7 +11,7 @@ from users.forms import UserChangeForm, UserRegistrationForm
 User = get_user_model()
 
 
-class ProfileView(View):
+class ProfileView(LoginRequiredMixin, View):
     """User profile page"""
     template = 'users/profile.html'
     form = UserChangeForm

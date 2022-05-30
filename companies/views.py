@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -28,7 +29,7 @@ def get_dict_of_sorted_companies_by_industry() -> dict:
     return industry_sort
 
 
-class CompaniesView(View):
+class CompaniesView(LoginRequiredMixin, View):
     """Companies page"""
     template = 'companies/companies.html'
     form = ChangeTrustPointsForm
@@ -108,7 +109,7 @@ class CompaniesView(View):
         return render(request, self.template, context)
 
 
-class CompanyView(View):
+class CompanyView(LoginRequiredMixin, View):
     """Specified company page"""
     template = 'companies/company.html'
 
@@ -128,7 +129,7 @@ class CompanyView(View):
         return render(request, self.template, context)
 
 
-class NewCompanyView(View):
+class NewCompanyView(LoginRequiredMixin, View):
     """Page of creating new company"""
     template = 'companies/new_company.html'
     form = NewCompanyForm

@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
+{% block title %}
+    Вход
+{% endblock %}
+
 {% block content %}
 
     {% if next %}
         {% if user.is_authenticated %}
-            <p>Your account doesn't have access to this page. To proceed,
-                please log in with an account that has access.</p>
+            {% include "users/include/error_403.html" %}
         {% else %}
-            <p>Please login to see this page.</p>
+            {% include "users/include/error_401.html" %}
         {% endif %}
     {% endif %}
 
@@ -44,4 +47,9 @@
         </form>
     </div>
 
+    <script>
+    $(document).ready(function () {
+        $("#myModal").modal('show');
+    });
+</script>
 {% endblock %}
