@@ -1,0 +1,45 @@
+.icon {
+    height: 35px;
+    width: 35px;
+    margin: 0 5px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: #00c8d0;
+}
+
+.company-link {
+    color: #212529;
+}
+
+
+.btn-aqua {
+    color: #fff;
+    background-color: #00c8d0;
+    border-color: #00c8d0;
+}
+
+.btn-aqua:hover {
+    color: #fff;
+    background-color: #029fa6;
+    border-color: #029fa6;
+}
+
+.btn-outline-aqua {
+    color: #00c8d0;
+    border-color: #00c8d0;
+}
+
+.btn-outline-aqua:hover {
+    color: #fff;
+    background-color: #00c8d0;
+    border-color: #00c8d0;
+}
+
+.form {
+    max-width: 50%;
+}

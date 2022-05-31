@@ -1,0 +1,17 @@
+.md-money {
+    color: #ffb900;
+    vertical-align: sub;
+    font-size: 1.2em;
+}
+
+.md-player {
+    color: #d39400;
+    vertical-align: sub;
+    font-size: 1.2em;
+}
+
+.md-cart {
+    color: #b699d3;
+    vertical-align: sub;
+    font-size: 1.2em;
+}
