@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse
 from django.views import View
@@ -5,7 +6,7 @@ from django.views import View
 from .socketio import sio
 
 
-class SocketAuthView(View):
+class SocketAuthView(LoginRequiredMixin, View):
     """Page of connecting socket session id and user"""
     event_name = 'isAuthorized'
 

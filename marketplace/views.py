@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
@@ -10,7 +11,7 @@ from stock_exchange.game_config import FEE_PERCENT
 from users.models import CustomUser
 
 
-class MarketplaceView(View):
+class MarketplaceView(LoginRequiredMixin, View):
     """Marketplace page"""
     template = 'marketplace/marketplace.html'
 
@@ -22,7 +23,7 @@ class MarketplaceView(View):
         return render(request, self.template, context)
 
 
-class SellSharesView(View):
+class SellSharesView(LoginRequiredMixin, View):
     """Shares sale page"""
     template = 'marketplace/sell_shares.html'
 
@@ -76,7 +77,7 @@ class SellSharesView(View):
         return render(request, self.template, context)
 
 
-class BuySharesView(View):
+class BuySharesView(LoginRequiredMixin, View):
     """Shares purchase page"""
     template = 'marketplace/buy_shares.html'
     form = BuySharesForm

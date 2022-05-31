@@ -1,5 +1,4 @@
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
     PasswordChangeDoneView,
     PasswordChangeView,
@@ -58,5 +57,5 @@ urlpatterns = [
         PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
         name='password_reset_complete',
     ),
-    path('profile/', login_required(views.ProfileView.as_view()), name='profile'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
 ]
